@@ -1,0 +1,6 @@
+# CHAVE DE ASSINATURA DO CANAL SPEED PLAYERTECH (Roku) — gerada via genkey 2026-06-18
+# CRITICA: todo update do canal na Roku TEM que usar esta MESMA chave.
+# Perdeu = nao consegue mais atualizar o canal (tem que criar canal novo).
+# Canal NOVO, independente do saplayer (cada canal Roku = chave propria).
+Password: sEy9Eetpz5HZrJ6mmM6Bbg==
+DevID:    71a98f419c387b87da7e836c979894a3f7b65915

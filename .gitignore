@@ -3,10 +3,6 @@ out/
 *.log
 node_modules/
 
-# Chave de assinatura do canal Roku do SpeedTech: a atual e copia da do saplayer
-# (placeholder). A chave REAL e gerada na publicacao do canal -> commitar so depois.
-.roku-signing-key.txt
-
 # Screenshots / mockups de desenvolvimento (nao fazem parte do app)
 Captura*.png
 SpeedTech.png
