@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="GridScreen" extends="BaseGroup"  initialFocus="markupList">
+    <script type="text/brightscript" uri="GridScreen.brs" />
+    <script type="text/brightscript" uri="pkg:/source/assets.brs" />
+	<interface>
+        <!-- Specifies the content for the Grid -->
+        <field id="content" type="node" alias="markupGrid.content" />
+		<field id="category" type="node" alias="markupList.content" />
+		<field id="searchContent" type="node" alias="filteredList.content" />
+		<field id="itemSelected" type="intarray" alwaysnotify="true" alias="markupGrid.itemSelected" />
+		<field id="itemSelectedFilter" type="intarray" alwaysnotify="true" alias="filteredList.itemSelected" />
+        <field id="jumpToItem" type="intarray" alias="markupList.jumpToItem" />
+		<field id="jumpToRowItem" type="intarray" alias="markupGrid.jumpToItem" />
+		<field id="jumpToRowItemFilter" type="intarray" alias="filteredList.jumpToItem" />
+		<field id="categorySelected" type="intarray" alwaysnotify="true" alias="markupList.itemSelected" />
+		<field id="keyboardText" type="string" alias="searchKeyboard.text" alwaysNotify="true"/>
+		<field id="screenLabel" type="string" alias="contentLabel.text" />
+    </interface>
+    <children>
+
+		<!-- Fundo gradiente em tela cheia (cobre a colagem de posteres do painel) -->
+		<Poster id="bgGradient" uri="pkg:/images/login/bg_login.jpg" width="1920" height="1080" translation="[0,0]" loadDisplayMode="scaleToFill" />
+
+		<!-- Cabecalho da grade: titulo da secao + contador -->
+		<Group id="header" translation="[560,46]">
+			<Label id="contentLabel" color="0xffffffff" translation="[0,0]">
+				<Font role="font" uri="pkg:/fonts/Montserrat-Black.ttf" size="50" />
+			</Label>
+			<Rectangle id="countPill" color="0x3b78ff26" width="160" height="36" translation="[230,12]">
+				<Label id="countLabel" color="0x9fb6c6ff" horizAlign="center" vertAlign="center" width="160" height="34">
+					<Font role="font" uri="pkg:/fonts/Montserrat-Medium.ttf" size="22" />
+				</Label>
+			</Rectangle>
+		</Group>
+
+		<!-- Painel lateral escuro -->
+		<Group id="listContainer">
+			<Poster id="sidebarBg" uri="pkg:/images/grid/sidebar.png" width="500" height="1080" translation="[0,0]" />
+			<!-- WHITELABEL: marca fixa "S.A PLAYER" removida — Poster fica oculto via GridScreen.brs (m.logo.visible = false). -->
+			<Poster id="logo" height="50" width="252" translation="[50,42]" visible="false" uri="pkg:/images/grid/logo.png" />
+			<Poster id="pointer" width="26" height="34" translation="[504,20]" uri="pkg:/images/icons/left.png" />
+			<Group id="group" translation="[0,120]">
+				<Poster id="searchBoxBg" uri="pkg:/images/grid/searchbox.png" width="400" height="62" translation="[50,0]" />
+				<Poster id="search" width="26" height="26" translation="[74,18]" uri="pkg:/images/grid/search_icon.png" />
+				<TextEditBox id="searchBox" width="300" height="52" hintText="Pesquisar..." textColor="0xFFFFFFFF" hintTextColor="0x9fb6c6ff" backgroundUri="pkg:/images/login/transparent.png" translation="[112,5]" clearOnDownKey="false"/>
+				<MarkupList
+					id="markupList"
+					translation="[50,110]"
+					itemComponentName="MarkupListItem"
+					wrapDividerBitmapUri=""
+					wrapDividerHeight="0"
+					itemSize="[400,64]"
+					itemSpacing="[0,8]"
+					drawFocusFeedback="false"
+					vertFocusAnimationStyle="floatingfocus" />
+				<keyboardSearch id="searchKeyboard" hideTextBox="true" translation="[50,110]" visible="false"/>
+			</Group>
+		</Group>
+
+	    <MarkupGrid
+            id = "markupGrid"
+            translation="[560,130]"
+            itemComponentName = "MarkupGridItem"
+            numColumns = "6"
+            numRows = "3"
+            vertFocusAnimationStyle = "fixed"
+            itemSize = "[ 200, 360 ]"
+            itemSpacing = "[ 24, 26 ]"
+            drawFocusFeedback = "false" />
+
+	    <MarkupGrid
+            id = "filteredList"
+            translation="[560,130]"
+            itemComponentName = "MarkupGridItem"
+            numColumns = "6"
+            numRows = "3"
+            vertFocusAnimationStyle = "fixed"
+            itemSize = "[ 200, 360 ]"
+            itemSpacing = "[ 24, 26 ]"
+            drawFocusFeedback = "false" />
+
+	    <ParallelAnimation  id = "openMenu" >
+            <Animation id="transAnimationIn" duration="0.2" repeat="false" easeFunction="linear" >
+                <Vector2DFieldInterpolator id = "translateInInterp" key="[0.0, 1.0]" keyValue="[ [-500, 0.0], [0.0, 0.0] ]" fieldToInterp="listContainer.translation" />
+				<Vector2DFieldInterpolator id = "translateInInterp2" key="[0.0, 1.0]" keyValue="[ [100, 130], [560, 130] ]" fieldToInterp="markupGrid.translation" />
+				<Vector2DFieldInterpolator id = "translateInInterp3" key="[0.0, 1.0]" keyValue="[ [100, 130], [560, 130] ]" fieldToInterp="filteredList.translation" />
+            </Animation>
+	    </ParallelAnimation>
+
+	    <ParallelAnimation  id = "closeMenu" >
+            <Animation id="transAnimationOut" duration="0.2" repeat="false" easeFunction="linear" >
+                <Vector2DFieldInterpolator id = "translateOutInterp" key="[0.0, 1.0]" keyValue="[ [0.0, 0.0] , [-500, 0.0] ]" fieldToInterp="listContainer.translation" />
+				<Vector2DFieldInterpolator id = "translateOutInterp2" key="[0.0, 1.0]" keyValue="[ [560, 130] , [100, 130] ]" fieldToInterp="markupGrid.translation" />
+				<Vector2DFieldInterpolator id = "translateOutInterp3" key="[0.0, 1.0]" keyValue="[ [560, 130] , [100, 130] ]" fieldToInterp="filteredList.translation" />
+            </Animation>
+	    </ParallelAnimation>
+
+    </children>
+</component>

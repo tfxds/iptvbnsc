@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********** Copyright 2021 XoceUnder.  All Rights Reserved. **********-->
+
+<component name="GetCategoriesTask" extends="Task">
+    <interface>
+        <field id="categories" type="array" />
+    </interface>
+
+    <script type="text/brightscript" uri="GetCategoriesTask.brs" />
+    <script type="text/brightscript" uri="pkg:/source/assets.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+</component>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="VideoPlayer" extends="BaseGroup">
+
+    <interface>
+        <field id="content" type="node" alias="video.content" />
+        <field id="contentIsPlaylist" type="bool" alias="video.contentIsPlaylist" />
+        <field id="contentIndex" type="string" alias="video.contentIndex" />
+        <field id="nextContentIndex" type="string" alias="video.nextContentIndex" />
+        <field id="control" type="string" alias="video.control" />
+        <field id="seek" type="string" alias="video.seek" />
+		<field id="closeVideo" type="bool" />
+    </interface>
+
+    <script type="text/brightscript" uri="Player.brs"/>
+
+    <children>
+        <!-- video node wrapper -->
+        <!-- NOTE: should be first child to not overlay other UI components -->
+        <RenderlessVideo id="video" width="1280" height="720"/>
+
+        <!-- Buffering facade -->
+        <Group id="loadingGroup">
+            <LoadingProgressBar
+			    id = "LoadingBar"
+                backgroundColor="#FFFFFF"
+                progressColor="#FF0000"
+                height="4"
+                width="250"
+                translation="[515, 400]" />
+        </Group>
+
+        <!-- UI of the player -->
+        <Group id="transportControls" translation="[200,1280]">
+            <Poster id="controlsGradient" uri="pkg:/images/player/bottom_gradient.png"/>
+            <LayoutGroup horizAlignment="center" translation="[960,-340]">
+                <Poster id="action" width="[155]" height="[60]"/>
+            </LayoutGroup>
+			<Poster id="stateIcon" width="20" height="20" uri="pkg:/images/player/pause.png" translation="[140,0]" visible="false"/>
+		    <Label id="title" width="1000" wrap="false" text="Your Cool Video Title" font="font:LargeBoldSystemFont" color="#ffffff" translation="[140,-180]"/>
+		    <Label id="epSubtitle" width="1000" wrap="false" text="" font="font:MediumSystemFont" color="#c8dce8" translation="[140,-130]"/>
+
+		    <!-- Barra de botoes navegavel (estilo Netflix). btnFocus fica ATRAS (desenhado
+		         primeiro) e e movido pelo Player.brs pro botao focado. Filme esconde prev/next. -->
+		    <Group id="btnBar">
+		        <Poster id="btnFocus" uri="pkg:/images/player/btn_focus.png" width="220" height="108" visible="false"/>
+		        <Poster id="btnPrevEp" uri="pkg:/images/player/prev_ep.png" width="64" height="64" translation="[660,-78]"/>
+		        <Poster id="btnMinus"  uri="pkg:/images/player/minus10.png" width="64" height="64" translation="[810,-78]"/>
+		        <Poster id="btnPlay"   uri="pkg:/images/player/play.png"    width="64" height="64" translation="[960,-78]"/>
+		        <Poster id="btnPlus"   uri="pkg:/images/player/plus10.png"  width="64" height="64" translation="[1110,-78]"/>
+		        <Poster id="btnNextEp" uri="pkg:/images/player/next_ep.png" width="64" height="64" translation="[1260,-78]"/>
+		    </Group>
+
+            <Label id="leftProgressLabel" text="00:00" horizAlign="center" height="10" translation="[180,-10]"/>
+			<PlaybackDurationBar id="progressBar" backgroundColor="#FFFFFFDD" progressColor="#FF0000" height="10" width="1270" translation="[180,10]"/>
+            <Label id="rightProgressLabel" text="00:00" horizAlign="center" height="10" translation="[1580,-10]"/>
+            <Poster id="progressModeBackground" translation="[690, -80]" width="92" height="60"
+            uri="pkg:/images/TrickPlay_ButtonBackground_HD.png" opacity="0.8">
+                <Poster id="progressMode" translation="[15,12]" width="60" height="36" opacity="1.0"/>
+            </Poster>
+        </Group>
+
+        <!-- FASE 3: bandeja de episodios (abre com seta pra baixo). Fica por cima do video. -->
+        <RowList
+            id="epTray"
+            translation="[120,740]"
+            itemComponentName="PlayerEpItem"
+            numRows="1"
+            rowItemSize="[[260,172]]"
+            rowHeights="[190]"
+            itemSize="[1680,190]"
+            rowItemSpacing="[[16,0]]"
+            showRowLabel="[false]"
+            showRowCounter="[false]"
+            drawFocusFeedback="false"
+            rowFocusAnimationStyle="fixedFocusWrap"
+            visible="false" />
+        <Label id="epTrayTitle" text="Episódios" translation="[120,700]" width="600" color="#ffffff" visible="false">
+            <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="26"/>
+        </Label>
+
+        <!-- FASE 4: card de autoplay do proximo episodio (canto inferior direito). -->
+        <Group id="nextCard" translation="[1340,816]" visible="false">
+            <Rectangle id="nextCardBg" width="540" height="200" color="0x141C3AF2"/>
+            <Poster id="nextThumb" width="116" height="168" translation="[16,16]" loadDisplayMode="scaleToZoom"/>
+            <Label id="nextLabelTop" text="Próximo episódio" translation="[150,22]" width="372" color="#9fb6c6">
+                <Font role="font" uri="pkg:/fonts/Montserrat-Medium.ttf" size="20"/>
+            </Label>
+            <Label id="nextLabelTitle" text="" translation="[150,58]" width="372" height="84" wrap="true" color="#ffffff">
+                <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="26"/>
+            </Label>
+            <Label id="nextLabelCount" text="" translation="[150,156]" width="372" color="#9fb6c6">
+                <Font role="font" uri="pkg:/fonts/Montserrat-Medium.ttf" size="20"/>
+            </Label>
+        </Group>
+
+        <!-- timer to hide ui after user idle -->
+        <Timer
+            id="transportControlsTimer"
+            repeat="false"
+            duration="5"
+        />
+
+        <!-- trasnport controls animation -->
+        <ParallelAnimation
+            id="showTCAnimation" 
+            repeat="false"
+        >
+            <Animation
+                id="transportControlsAnimation"
+                duration="0.6"
+                repeat="false"
+                optional="true"
+                easefunction="linear">
+                <Vector2DFieldInterpolator
+                    id="transportControlsInterpolator"
+                    key="[0.0, 1.0]"
+                    fieldToInterp="transportControls.translation"
+                />
+            </Animation>
+            <Animation
+                id="gradientAnimation"
+                duration="0.4"
+                repeat="false"
+                easeFunction="linear">
+                <FloatFieldInterpolator
+                    id="gradientInterpolator"
+                    key="[0.0, 1.0]"
+                    fieldToInterp="transportControls.opacity"
+                />
+            </Animation>
+        </ParallelAnimation>
+    </children>
+</component>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********** Copyright 2021 XoceUnder.  All Rights Reserved. **********-->
+
+<component name="CategorylistTask" extends="Task">
+    <interface>
+		<field id="live" type="array" alwaysNotify="true" />
+		<field id="movies" type="array" alwaysNotify="true" />
+		<field id="series" type="array" alwaysNotify="true" />
+		<field id="finish" type="bool"/>
+    </interface>
+	
+    <script type="text/brightscript" uri="CategorylistTask.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+	
+</component>

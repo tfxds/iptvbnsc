@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<!-- Categoria dos CANAIS no MESMO estilo de Filmes/Series (pilula grid/cat_normal +
+     grid/cat_selected azul ao selecionar). Versao mais estreita pra coluna dos Canais. -->
+<component name = "LiveCategoryItem" extends = "BaseGroup" >
+
+  <interface>
+    <field id = "itemContent" type = "node" onChange = "showcontent" />
+    <field id = "focusPercent" type = "float" onChange = "showfocus" />
+    <field id="index" type="integer"/>
+  </interface>
+  <script type="text/brightscript" uri="LiveCategoryItem.brs" />
+
+  <children>
+    <Group id="group">
+      <Poster id="pillNormal" uri="pkg:/images/grid/cat_normal.png" width="338" height="56" translation="[ 0, 0 ]" />
+      <Poster id="pillSelected" uri="pkg:/images/grid/cat_selected.png" width="338" height="56" translation="[ 0, 0 ]" opacity="0" />
+      <ScrollingLabel id = "itemLabel" maxWidth="240" height="56" vertAlign="center" translation = "[ 20, 0 ]" color="0xc8dce8ff">
+        <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="22" />
+      </ScrollingLabel>
+      <Label id="countLabel" width="50" height="56" translation="[ 272, 0 ]" horizAlign="right" vertAlign="center" color="0x8AA0C0ff">
+        <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="20" />
+      </Label>
+    </Group>
+  </children>
+
+</component>

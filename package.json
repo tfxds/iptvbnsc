@@ -1,0 +1,11 @@
+{
+  "name": "roku-saplayer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "brighterscript --project bsconfig.json --create-package false"
+  },
+  "devDependencies": {
+    "brighterscript": "^0.72.4"
+  }
+}

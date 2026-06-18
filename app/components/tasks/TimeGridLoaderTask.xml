@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********** Copyright 2021 XoceUnder.  All Rights Reserved. **********-->
+
+<component name="TimeGridLoaderTask" extends="Task">
+    <interface>
+        <field id="content" type="node" />
+		<!-- string: aceita category_id "" (Tudo), "0" (Favoritos) e ids normais. -->
+		<field id="id" type="string"/>
+		<!-- rawOnly: preload leve -> so baixa/cacheia o JSON cru, NAO constroi os 1175 nos. -->
+		<field id="rawOnly" type="bool" value="false"/>
+    </interface>
+
+    <script type="text/brightscript" uri="TimeGridLoaderTask.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+
+</component>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+  Modal de HISTORICO/Listas customizado (overlay proprio, estilo do AccountScreenDialog).
+  Substitui o Dialog nativo de opcoes. Empilhado pelo MenuScreenLogic via ShowScreen.
+  Interface:
+    - selected : indice da opcao escolhida (0=Continuar, 1=Favoritos, 2=Limpar, 3=Voltar)
+                 (3/back tambem fecham, tratado no MenuScreenLogic)
+-->
+<component name="FavoritesScreenDialog" extends="Group" >
+
+<script type="text/brightscript" uri="pkg:/source/assets.brs" />
+<script type="text/brightscript" >
+<![CDATA[
+function init()
+    m.opts = [
+        m.top.findNode("opt0"),
+        m.top.findNode("opt1"),
+        m.top.findNode("opt2"),
+        m.top.findNode("opt3")
+    ]
+    m.rings = [
+        m.top.findNode("ring0"),
+        m.top.findNode("ring1"),
+        m.top.findNode("ring2"),
+        m.top.findNode("ring3")
+    ]
+    m.fills = [
+        m.top.findNode("fill0"),
+        m.top.findNode("fill1"),
+        m.top.findNode("fill2"),
+        m.top.findNode("fill3")
+    ]
+    m.focusIndex = 0
+    refreshFocus()
+end function
+
+sub refreshFocus()
+    for i = 0 to 3
+        if i = m.focusIndex
+            m.rings[i].color = "0x4F9CFFFF"
+            m.fills[i].color = "0x32507FFF"
+            m.opts[i].color = "0xFFFFFFFF"
+        else
+            m.rings[i].color = "0x2A3B5CFF"
+            m.fills[i].color = "0x131D31FF"
+            m.opts[i].color = "0x9FB6C6FF"
+        end if
+    end for
+end sub
+
+function onKeyEvent(key as String, press as Boolean) as Boolean
+    if not press then return false
+
+    if key = "back"
+        m.top.selected = 3
+        return true
+    else if key = "up"
+        if m.focusIndex > 0
+            m.focusIndex = m.focusIndex - 1
+            refreshFocus()
+        end if
+        return true
+    else if key = "down"
+        if m.focusIndex < 3
+            m.focusIndex = m.focusIndex + 1
+            refreshFocus()
+        end if
+        return true
+    else if key = "OK"
+        m.top.selected = m.focusIndex
+        return true
+    end if
+
+    return false
+end function
+]]>
+</script>
+
+<interface>
+  <field id="selected" type="integer" alwaysNotify="true" />
+</interface>
+
+<children>
+  <!-- Backdrop escurece a home atras -->
+  <Rectangle id="backdrop" width="1920" height="1080" color="0x000000FF" opacity="0.65" />
+
+  <!-- Card escuro centralizado -->
+  <Rectangle id="card" width="560" height="560" color="0x0E1626F2" translation="[680, 260]">
+
+    <SimpleLabel id="titleLabel"
+            horizOrigin="center" vertOrigin="top"
+            text="Histórico"
+            color="0xFFFFFFFF"
+            fontSize="38"
+            fontUri="pkg:/fonts/Montserrat-Black.ttf"
+            translation="[280, 48]" />
+
+    <Rectangle width="460" height="2" color="0x2A3B5CFF" translation="[50, 118]" />
+
+    <!-- Opcao 0: Continuar Assistindo -->
+    <Rectangle id="ring0" width="468" height="74" color="0x4F9CFFFF" translation="[46, 150]">
+        <Rectangle id="fill0" width="460" height="66" color="0x32507FFF" translation="[4, 4]">
+            <SimpleLabel id="opt0" horizOrigin="center" vertOrigin="center" text="Continuar Assistindo"
+                    color="0xFFFFFFFF" fontSize="24" fontUri="pkg:/fonts/Montserrat-Bold.ttf" translation="[230, 33]" />
+        </Rectangle>
+    </Rectangle>
+
+    <!-- Opcao 1: Meus Favoritos -->
+    <Rectangle id="ring1" width="468" height="74" color="0x2A3B5CFF" translation="[46, 238]">
+        <Rectangle id="fill1" width="460" height="66" color="0x131D31FF" translation="[4, 4]">
+            <SimpleLabel id="opt1" horizOrigin="center" vertOrigin="center" text="Meus Favoritos"
+                    color="0x9FB6C6FF" fontSize="24" fontUri="pkg:/fonts/Montserrat-Bold.ttf" translation="[230, 33]" />
+        </Rectangle>
+    </Rectangle>
+
+    <!-- Opcao 2: Limpar Recentes -->
+    <Rectangle id="ring2" width="468" height="74" color="0x2A3B5CFF" translation="[46, 326]">
+        <Rectangle id="fill2" width="460" height="66" color="0x131D31FF" translation="[4, 4]">
+            <SimpleLabel id="opt2" horizOrigin="center" vertOrigin="center" text="Limpar Recentes"
+                    color="0x9FB6C6FF" fontSize="24" fontUri="pkg:/fonts/Montserrat-Bold.ttf" translation="[230, 33]" />
+        </Rectangle>
+    </Rectangle>
+
+    <!-- Opcao 3: Voltar -->
+    <Rectangle id="ring3" width="468" height="74" color="0x2A3B5CFF" translation="[46, 414]">
+        <Rectangle id="fill3" width="460" height="66" color="0x131D31FF" translation="[4, 4]">
+            <SimpleLabel id="opt3" horizOrigin="center" vertOrigin="center" text="Voltar"
+                    color="0x9FB6C6FF" fontSize="24" fontUri="pkg:/fonts/Montserrat-Bold.ttf" translation="[230, 33]" />
+        </Rectangle>
+    </Rectangle>
+
+  </Rectangle>
+</children>
+
+</component>

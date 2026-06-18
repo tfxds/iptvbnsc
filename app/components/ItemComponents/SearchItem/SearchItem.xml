@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="SearchItem" extends="Group">
+    <script type="text/brightscript" uri="SearchItem.brs" />
+    <interface>
+        <field id="itemContent" type="node" onChange="OnContentSet" />
+		<field id="itemHasFocus" type="bool" onChange="onFocusChange" />
+    </interface>
+    <children>
+        <Poster id="poster" width="260" height="350"  loadWidth = "260" loadHeight = "350" loadingBitmapUri="pkg:/images/poster_loading.png" failedBitmapUri="pkg:/images/poster_failed.png" loadDisplayMode="limitSize" />
+		<Rectangle id="background" translation="[0, 308]" width="260" height="42" color="#101826" opacity="0.92" >
+		    <ScrollingLabel id="posterText" maxWidth="250" height="30" horizAlign="center" repeatCount="0" color="#FFFFFF" translation="[0, 5]">
+		        <Font role="font" size="20" uri="pkg:/fonts/Montserrat-Medium.ttf" />
+		    </ScrollingLabel>
+		</Rectangle>
+		<Poster id="focusRing" width="284" height="374" translation="[-12,-12]" uri="pkg:/images/search/card_focus.png" visible="false" />
+    </children>
+</component>

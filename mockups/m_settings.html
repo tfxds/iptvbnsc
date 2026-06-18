@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset=utf-8><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+html,body{width:1920px;height:1080px}
+.s{width:1920px;height:1080px;position:relative;display:flex;gap:40px;padding:70px;color:#fff;
+ background:radial-gradient(1100px 700px at 20% 20%,rgba(40,95,255,.16),transparent 60%),linear-gradient(135deg,#0a1020,#0b1426 45%,#070b16)}
+.menu{width:680px;display:flex;flex-direction:column;gap:16px}
+.menu h2{font-size:34px;font-weight:800;margin-bottom:14px;color:#cfe0f0}
+.it{display:flex;align-items:center;gap:18px;height:84px;padding:0 26px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);font-size:26px;font-weight:600;color:#dce8f2}
+.it .ic{width:42px;height:42px;border-radius:11px;background:rgba(59,120,255,.16);display:flex;align-items:center;justify-content:center}
+.it .ic svg{width:24px;height:24px;color:#8fb3ff}
+.it.on{background:linear-gradient(135deg,#3b78ff,#1450e0);border-color:transparent;box-shadow:0 12px 30px rgba(20,80,224,.4)}
+.it.on .ic{background:rgba(255,255,255,.2)}.it.on .ic svg{color:#fff}
+.panel{flex:1;border-radius:28px;background:rgba(16,26,44,.7);border:1px solid rgba(150,180,255,.18);padding:50px;display:flex;flex-direction:column;align-items:center}
+.panel h3{font-size:40px;font-weight:800;margin-bottom:10px}.panel p.s{color:#8ea6b8;font-size:24px;margin-bottom:40px}
+.dots{display:flex;gap:18px;margin-bottom:40px}
+.dots i{width:64px;height:64px;border-radius:14px;background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.16)}
+.dots i.f{border-color:#3b78ff;background:rgba(59,120,255,.14)}
+.pad{display:grid;grid-template-columns:repeat(3,120px);gap:18px}
+.pad b{height:96px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:700;color:#dce8f2}
+.pad b.on{background:linear-gradient(135deg,#3b78ff,#1450e0);border-color:transparent}
+.panel .desc{margin-top:auto;color:#8ea6b8;font-size:22px;text-align:center}
+</style></head><body><div class=s>
+ <div class=menu>
+  <h2>Configurações</h2>
+  <div class="it on"><span class=ic><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>Alterar PIN</div>
+  <div class=it><span class=ic><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><path d="M3 3l18 18"/></svg></span>Ocultar categorias de canais</div>
+  <div class=it><span class=ic><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><path d="M3 3l18 18"/></svg></span>Ocultar categorias de filmes</div>
+  <div class=it><span class=ic><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><path d="M3 3l18 18"/></svg></span>Ocultar categorias de séries</div>
+  <div class=it><span class=ic><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h6"/></svg></span>Ordenar lista de conteúdo</div>
+  <div class=it><span class=ic><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M8 3l4 3 4-3"/></svg></span>Formato de transmissão</div>
+  <div class=it><span class=ic><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 17l5-5-5-5M21 12H9M13 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8"/></svg></span>Remover conta do dispositivo</div>
+ </div>
+ <div class=panel>
+  <h3>Alterar PIN</h3><p class=s>Insira o PIN atual</p>
+  <div class=dots><i class=f></i><i></i><i></i><i></i></div>
+  <div class=pad><b>1</b><b>2</b><b>3</b><b>4</b><b class=on>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>⌫</b><b>0</b><b>✓</b></div>
+  <div class=desc>Altere seu PIN para proteger o conteúdo adulto e as configurações.</div>
+ </div>
+</div></body></html>

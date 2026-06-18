@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2020 Roku, Inc. All rights reserved. -->
+
+<component name="EpisodesListItemComponent" extends="BaseGroup">
+  <interface>
+       <field id="itemContent" type="node" onChange="showcontent"/>
+       <field id="focusPercent" type="float" onChange="showfocus"/>
+       <field id="listHasFocus" type="bool" onChange="showfocus"/>
+       <field id="width" type="float" onChange="showcontent"/>
+       <field id="height" type="float" onChange="showcontent"/>
+  </interface>
+     
+  <script type="text/brightscript" uri="EpisodesListItemComponent.brs" />
+  <children >
+    <Rectangle id="frame" color="0xffffff" opacity="0" />
+    <Rectangle id="background" color="0x000000" translation="[0, 21]" >
+      <Poster id="itemPoster" loadDisplayMode="limitSize" loadingBitmapUri="pkg:/images/thumbnail_placeholder.png" failedBitmapUri="pkg:/images/failed_poster.jpg" />
+      <Group id="detailGroup" translation="[280, 0]" >
+        <ScrollingLabel id="title" scrollSpeed="60" maxWidth="230" color="#ffffff" translation="[0, 12]" />
+        <Label id="description" wrap="true" color="#ffffff" translation="[0, 80]" lineSpacing="0" />
+        <Label id="duration" />
+      </Group>
+    </Rectangle>
+  </children>
+</component>

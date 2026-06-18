@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="SampleMessageDialog" extends="StandardMessageDialog" initialFocus="buttonArea" >
+
+<script type="text/brightscript" >
+<![CDATA[
+function init()
+    print "Creating SampleMessageDialog"
+
+	never = m.global.expire
+	if m.global.expire <> "Never"
+	    dt = CreateObject("roDateTime")
+	    dt.fromSeconds(m.global.expire.toInt())
+	    never =dt.AsDateString("short-month-no-weekday")
+	end if
+
+    m.top.title = tr("StandardMessageDialog Test")
+    m.top.message = [ tr("Account: ") + m.global.user, 
+	                  tr("Expires: ") + tr(never), 
+					  tr("Device: ") + m.global.GetModel, 
+					  tr("Connections: ") + m.global.active_cons, 
+					  tr("Max Connections: ") + m.global.max_connections,  ]
+    m.top.bulletText = [ tr("Bullet 1"), tr("Bullet 2") ]
+    'm.top.bulletType = "numbered"
+    m.top.bottomMessage = [ tr("Bottom Message") ]
+    m.top.buttons = [ tr("OK"), tr("Cancel") ]
+
+    m.top.observeFieldScoped("buttonFocused", "printFocusButton")
+    m.top.observeFieldScoped("buttonSelected", "printSelectedButtonAndClose")
+    m.top.observeFieldScoped("wasClosed", "wasClosedChanged")
+end function
+
+sub printFocusButton()
+    print "m.buttonArea button ";m.top.buttons[m.top.buttonFocused];" focused"
+end sub
+
+sub printSelectedButtonAndClose()
+    print "m.buttonArea button ";m.top.buttons[m.top.buttonSelected];" selected"
+    m.top.close = true
+end sub
+
+sub wasClosedChanged()
+    print "SimpleProgressDialog Closed"
+end sub
+
+]]>
+</script>
+
+<children>
+
+</children>
+
+</component>

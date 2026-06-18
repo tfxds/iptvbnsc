@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<component name="ProgramChannelNode" extends="ContentNode">
+<script type="text/brightscript">
+<![CDATA[
+sub init()
+end sub
+		
+sub onProgramSet(event as object)
+	program = event.getData()
+	if program <> invalid
+	    m.top.id = program.id
+	    m.top.Description = program.description
+	    m.top.PlayDuration = program.duration
+	    m.top.PlayStart = program.start_timestamp
+	    m.top.PlayStop = program.stop_timestamp
+	    m.top.Title = program.program_title
+	end if
+end sub
+]]>
+</script>
+<interface> 
+  <field id="program" type="AssocArray" onChange="onProgramSet" /> 
+</interface>
+</component>

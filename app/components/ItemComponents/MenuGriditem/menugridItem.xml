@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<component name = "menugridItem" extends = "BaseGroup" >
+  <interface> 
+    <field id = "itemContent" type = "node" onChange = "showcontent" />
+    <field id="width" type = "float" onChange="showcontent" /> 
+    <field id="height" type = "float" onChange="showcontent" /> 
+    <field id = "focusPercent" type = "float" onChange = "showfocus" />
+    <field id = "itemFocused" type = "node" />
+    <field id = "itemSelected" type = "node" />
+  </interface>
+  <script type = "text/brightscript" uri = "menugridItem.brs" />
+    <script type="text/brightscript" uri="pkg:/source/assets.brs" />
+  <children>
+    <Poster id="poster" width = "300" height = "300" scaleRotateCenter   = "[ 150, 366 ]" uri = "pkg:/images/menu/fondo.png">
+        <LayoutGroup id="mainGroup" layoutDirection="vert" vertAlignment="center" horizAlignment="center" itemSpacings="[20]"  >
+           <Poster id="icon" />
+        </LayoutGroup>
+	</Poster>
+  </children>
+</component>

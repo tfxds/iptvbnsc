@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="PinTask" extends="Task" >
+
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+	
+	<script type="text/brightscript">
+		<![CDATA[
+		sub init()
+		    m.top.functionName = "go"
+		end sub
+		
+		sub go()
+		    read = regread("lock", m.top.section)
+		    ' PIN padrao 0000 quando nunca foi definido (ou gravado em outro namespace).
+		    if read = invalid or read = "" then read = "0000"
+		    ' o PinPad guarda como numero e perde zeros a esquerda (0000 -> "0").
+		    ' Recompoe 4 digitos antes de comparar.
+		    pin = m.top.pin
+		    if pin = invalid then pin = ""
+		    while Len(pin) < 4
+		        pin = "0" + pin
+		    end while
+		    if pin = read then
+		        m.top.result = true
+		    else
+		    	m.top.result = false
+		    end if
+		end sub
+		]]>
+	</script>
+	<interface>
+		<field id="pin" type="string"/>
+		<field id="section" type="string"/>
+		<field id="result" type="boolean"/>
+	</interface>
+</component>
+

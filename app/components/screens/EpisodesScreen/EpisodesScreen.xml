@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2021 XoceUnder.  All Rights Reserved. **********--> 
+
+<component name="EpisodesScreen" extends="BaseGroup" initialFocus="episodes">
+    <script type="text/brightscript" uri="EpisodesScreen.brs" />
+    <interface>
+        <!-- Content fields -->
+        <field id="content" type="node" alwaysnotify="true" onChange="OnContentChange" />
+        <!-- @ReadOnly -->
+		<!-- Array with 2 ints - section and item in current section that was selected -->
+		<field id="selectedItem" type="vector2d" alwaysNotify="true" />
+	    <!-- @WriteOnly -->
+		<field id="jumpToItem" type="integer" alwaysNotify="true" onChange="OnJumpToItem" />
+		<field id="jumpToEpisode" type="integer" alwaysNotify="true" />
+    </interface>
+    <children>
+	    <Backdrop id="backdrop" shade="0.6" maskColor="0x000000" />
+        <LabelList
+            id="seasons"
+            translation="[100, 200]"
+			numRows="10"
+            itemSize="[600, 72]"
+            itemSpacing="[555, 9]"
+            vertFocusAnimationStyle="floatingFocus"
+            drawFocusFeedback="true" />
+        <MarkupList
+            id="episodes"
+            itemSize="[1040, 300]"
+            translation="[780, 200]"
+            itemSpacing="[10, 18]"
+            numRows="3"
+            itemComponentName="EpisodesListItemComponent"
+            drawFocusFeedback="false"
+            vertFocusAnimationStyle="fixedFocusWrap" />
+
+    </children>
+</component>

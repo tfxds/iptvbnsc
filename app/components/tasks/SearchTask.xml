@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********** Copyright 2021 XoceUnder.  All Rights Reserved. **********-->
+
+<component name="SearchTask" extends="Task">
+    <interface>
+	    <field id="content" type="node" alwaysNotify="true"/>
+		<field id="action" type="string" alwaysNotify="true" />
+		<field id="searchTerm" type="string" alwaysNotify="true" />
+    </interface>
+	
+    <script type="text/brightscript" uri="SearchTask.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+	
+</component>

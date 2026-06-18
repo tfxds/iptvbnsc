@@ -1,0 +1,821 @@
+{
+  "keyboardWidthFHD": 1400,
+  "keyboardHeightFHD": 280,
+  "keyboardWidthHD": 1056,
+  "keyboardHeightHD": 224,
+  "sections": [
+    {
+      "sectionWidthFHD": 180,
+      "sectionWidthHD": 120,
+      "grids": [
+        {
+          "rows": [
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_ShiftKeyBitmap",
+                  "focusIcon": "theme:DKB_ShiftKeyFocusBitmap",
+                  "strOut": "shift"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_SpaceKeyBitmap",
+                  "focusIcon": "theme:DKB_SpaceKeyFocusBitmap",
+          "strOut": "space"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_DeleteKeyBitmap",
+                  "focusIcon": "theme:DKB_DeleteKeyFocusBitmap",
+          "autoRepeat": 1,
+                  "strOut": "backspace"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_LeftKeyBitmap",
+                  "focusIcon": "theme:DKB_LeftKeyFocusBitmap",
+                  "strOut": "left"
+                },
+                {
+                  "icon": "theme:DKB_RightKeyBitmap",
+                  "focusIcon": "theme:DKB_RightKeyFocusBitmap",
+                  "strOut": "right"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionWidthFHD": 630,
+      "sectionWidthHD": 420,
+      "grids": [
+        {
+          "modes": "ABC123Lower",
+          "rows": [
+            {
+              "keys": [
+                { "label": "a" },
+                { "label": "b" },
+                { "label": "c" },
+                { "label": "d" },
+                { "label": "e" },
+                { "label": "f" },
+                { "label": "g" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "h" },
+                { "label": "i" },
+                { "label": "j" },
+                { "label": "k" },
+                { "label": "l" },
+                { "label": "m" },
+                { "label": "n" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "o" },
+                { "label": "p" },
+                { "label": "q" },
+                { "label": "r" },
+                { "label": "s" },
+                { "label": "t" },
+                { "label": "u" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "v" },
+                { "label": "w" },
+                { "label": "x" },
+                { "label": "y" },
+                { "label": "z" },
+                { "label": "-" },
+                { "label": "_" }
+              ]
+            }
+          ]
+        },
+        {
+          "modes": ["ABC123Upper", "ABC123Shift" ],
+          "rows": [
+            {
+              "keys": [
+                { "label": "A" },
+                { "label": "B" },
+                { "label": "C" },
+                { "label": "D" },
+                { "label": "E" },
+                { "label": "F" },
+                { "label": "G" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "H" },
+                { "label": "I" },
+                { "label": "J" },
+                { "label": "K" },
+                { "label": "L" },
+                { "label": "M" },
+                { "label": "N" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "O" },
+                { "label": "P" },
+                { "label": "Q" },
+                { "label": "R" },
+                { "label": "S" },
+                { "label": "T" },
+                { "label": "U" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "V" },
+                { "label": "W" },
+                { "label": "X" },
+                { "label": "Y" },
+                { "label": "Z" },
+                { "label": "-" },
+                { "label": "_" }
+              ]
+            }
+          ]
+        },
+        {
+          "modes": "SymbolsLower",
+          "rows": [
+            {
+              "keys": [
+                { "label": "!" },
+                { "label": "?" },
+                { "label": "\u002A" },
+                { "label": "\u0023" },
+                { "label": "\u0024" },
+                { "label": "\u0025" },
+                { "label": "\u005E" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u0026" },
+                { "label": "\u002c" },
+                { "label": "\u003A" },
+                { "label": "\u003B" },
+                { "label": "\u0060" },
+                { "label": "\u0027" },
+                { "label": "\u0022" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u0028" },
+                { "label": "\u0029" },
+                { "label": "\u007B" },
+                { "label": "\u007D" },
+                { "label": "\u005B" },
+                { "label": "\u005D" },
+                { "label": "\u007E" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u00A1" },
+                { "label": "\u00BF" },
+                { "label": "\u003C" },
+                { "label": "\u003E" },
+                { "label": "\u007C" },
+                { "label": "\u005C" },
+                { "label": "\u002F" }
+              ]
+            }
+          ]
+        },
+        {
+          "modes": ["SymbolsUpper", "SymbolsShift"],
+          "rows": [
+            {
+              "keys": [
+                { "label": "\u2022" },
+                { "label": "\u00B7" },
+                { "label": "\u00A2" },
+                { "label": "\u00A3" },
+                { "label": "\u00A5" },
+                { "label": "\u20AC" },
+                { "label": "\u00A7" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u00AE" },
+                { "label": "\u00A9" },
+                { "label": "\u2122" },
+                { "label": "\u00AB" },
+                { "label": "\u00BB" },
+                { "label": "\u2039" },
+                { "label": "\u203A" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u2020" },
+                { "label": "\u2021" },
+                { "label": "\u0192" },
+                { "label": "\u00B6" },
+                { "label": "\u00B9" },
+                { "label": "\u00B2" },
+                { "label": "\u00B3" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u00BA" },
+                { "label": "\u00B0" },
+                { "label": "\u00AA" },
+                { "label": "\u2026" },
+                {                   },
+                {                   },
+                {                   }
+              ]
+            }
+          ]
+        },
+        {
+          "modes": "AccentsLower",
+          "rows": [
+            {
+              "keys": [
+                { "label": "\u00E0" },
+                { "label": "\u00E1" },
+                { "label": "\u00E2" },
+                { "label": "\u00E3" },
+                { "label": "\u00E4" },
+                { "label": "\u00E5" },
+                { "label": "\u00E6" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u00E8" },
+                { "label": "\u00E9" },
+                { "label": "\u00EA" },
+                { "label": "\u00EB" },
+                { "label": "\u00EC" },
+                { "label": "\u00ED" },
+                { "label": "\u00EE" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u00EF" },
+                { "label": "\u00F2" },
+                { "label": "\u00F3" },
+                { "label": "\u00F4" },
+                { "label": "\u00F5" },
+                { "label": "\u00F6" },
+                { "label": "\u00F8" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u0153" },
+                { "label": "\u00F9" },
+                { "label": "\u00FA" },
+                { "label": "\u00FB" },
+                { "label": "\u00FC" },
+                { "label": "\u00E7" },
+                { "label": "\u00F1" }
+              ]
+            }
+          ]
+        },
+        {
+          "modes": ["AccentsUpper", "AccentsShift"],
+          "rows": [
+            {
+              "keys": [
+                { "label": "\u00C0" },
+                { "label": "\u00C1" },
+                { "label": "\u00C2" },
+                { "label": "\u00C3" },
+                { "label": "\u00C4" },
+                { "label": "\u00C5" },
+                { "label": "\u00C6" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u00C8" },
+                { "label": "\u00C9" },
+                { "label": "\u00CA" },
+                { "label": "\u00CB" },
+                { "label": "\u00CC" },
+                { "label": "\u00CD" },
+                { "label": "\u00CE" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u00CF" },
+                { "label": "\u00D2" },
+                { "label": "\u00D3" },
+                { "label": "\u00D4" },
+                { "label": "\u00D5" },
+                { "label": "\u00D6" },
+                { "label": "\u00D8" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u0152" },
+                { "label": "\u00D9" },
+                { "label": "\u00DA" },
+                { "label": "\u00DB" },
+                { "label": "\u00DC" },
+                { "label": "\u00C7" },
+                { "label": "\u00D1" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionWidthFHD": 270,
+      "sectionWidthHD": 180,
+      "grids": [
+        {
+          "modes": ["ABC123Lower", "ABC123Upper", "ABC123Shift"],
+          "rows": [
+            {
+              "keys": [
+                { "label": "1" },
+                { "label": "2" },
+                { "label": "3" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "4" },
+                { "label": "5" },
+                { "label": "6" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "7" },
+                { "label": "8" },
+                { "label": "9" }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "label": "@",
+                  "suggestions": {
+                      "options": [ "@aol.com", "@msn.com", "@yahoo.com", "@mac.com", "@gmail.com", "@roku.com" ],
+              "triggers": [ "hover", "select" ]
+                   }
+                },
+                { "label": "." },
+                { "label": "0" }
+              ]
+            }
+          ]
+        },
+        {
+          "modes": "SymbolsLower",
+          "rows": [
+            {
+              "keys": [
+                { "label": "\u00B4" },
+                { "label": "\u02C6" },
+                { "label": "\u02DC" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u00A8" },
+                { "label": "\u00AF" },
+                { "label": "\u00B8" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u003D" },
+                { "label": "\u002B" },
+                { "label": "\u00D7" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u00F7" },
+                { "label": "\u00B1" },
+                { "label": "\u2030" }
+              ]
+            }
+          ]
+        },
+        {
+          "modes": ["SymbolsUpper", "SymbolsShift"],
+          "rows": [
+            {
+              "keys": [
+                { "label": "\u00BC" },
+                { "label": "\u00BD" },
+                { "label": "\u00BE" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u201C" },
+                { "label": "\u201D" },
+                { "label": "\u201E" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u2018" },
+                { "label": "\u2019" },
+                { "label": "\u201A" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u2013" },
+                { "label": "\u2014" },
+                {                   }
+              ]
+            }
+          ]
+        },
+        {
+          "modes": "AccentsLower",
+          "rows": [
+            {
+              "keys": [
+                { "label": "\u00FD" },
+                { "label": "\u00FF" },
+                { "label": "\u0161" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u017E" },
+                { "label": "\u00F0" },
+                { "label": "\u00FE" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u00DF" },
+                {                   },
+                {                   }
+              ]
+            },
+            {
+              "keys": [
+                {                   },
+                {                   },
+                {                   }
+              ]
+            }
+          ]
+        },
+        {
+          "modes": ["AccentsUpper", "AccentsShift"],
+          "rows": [
+            {
+              "keys": [
+                { "label": "\u00DD" },
+                { "label": "\u0178" },
+                { "label": "\u0160" }
+              ]
+            },
+            {
+              "keys": [
+                { "label": "\u017D" },
+                { "label": "\u00D0" },
+                { "label": "\u00DE" }
+              ]
+            },
+            {
+              "keys": [
+                {                   },
+                {                   },
+                {                   }
+              ]
+            },
+            {
+              "keys": [
+                {                   },
+                {                   },
+                {                   }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionWidthFHD": 180,
+      "sectionWidthHD": 120,
+      "grids": [
+        {
+      "modes": ["ABC123Lower", "ABC123Shift" ],
+          "rows": [
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_CapsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_CapsModOffKeyFocusBitmap",
+                  "strOut": "capslock"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_ABC123ModOnKeyBitmap",
+                  "focusIcon": "theme:DKB_ABC123ModOnKeyFocusBitmap",
+          "strOut": "abc123"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_SymbolsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_SymbolsModOffKeyFocusBitmap",
+                  "strOut": "symbols"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_AccentsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_AccentsModOffKeyFocusBitmap",
+                  "strOut": "accents"
+                }
+              ]
+            }
+          ]
+        },
+        {
+      "modes": "ABC123Upper",
+          "rows": [
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_CapsModOnKeyBitmap",
+                  "focusIcon": "theme:DKB_CapsModOnKeyFocusBitmap",
+                  "strOut": "capslock"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_ABC123ModOnKeyBitmap",
+                  "focusIcon": "theme:DKB_ABC123ModOnKeyFocusBitmap",
+          "strOut": "abc123"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_SymbolsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_SymbolsModOffKeyFocusBitmap",
+                  "strOut": "symbols"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_AccentsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_AccentsModOffKeyFocusBitmap",
+                  "strOut": "accents"
+                }
+              ]
+            }
+          ]
+        },
+        {
+      "modes": ["SymbolsLower", "SymbolsShift"],
+          "rows": [
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_CapsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_CapsModOffKeyFocusBitmap",
+                  "strOut": "capslock"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_ABC123ModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_ABC123ModOffKeyFocusBitmap",
+          "strOut": "abc123"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_SymbolsModOnKeyBitmap",
+                  "focusIcon": "theme:DKB_SymbolsModOnKeyFocusBitmap",
+                  "strOut": "symbols"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_AccentsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_AccentsModOffKeyFocusBitmap",
+                  "strOut": "accents"
+                }
+              ]
+            }
+          ]
+        },
+        {
+      "modes": "SymbolsUpper",
+          "rows": [
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_CapsModOnKeyBitmap",
+                  "focusIcon": "theme:DKB_CapsModOnKeyFocusBitmap",
+                  "strOut": "capslock"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_ABC123ModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_ABC123ModOffKeyFocusBitmap",
+          "strOut": "abc123"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_SymbolsModOnKeyBitmap",
+                  "focusIcon": "theme:DKB_SymbolsModOnKeyFocusBitmap",
+                  "strOut": "symbols"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_AccentsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_AccentsModOffKeyFocusBitmap",
+                  "strOut": "accents"
+                }
+              ]
+            }
+          ]
+        },
+        {
+      "modes": ["AccentsLower", "AccentsShift"],
+          "rows": [
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_CapsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_CapsModOffKeyFocusBitmap",
+                  "strOut": "capslock"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_ABC123ModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_ABC123ModOffKeyFocusBitmap",
+          "strOut": "abc123"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_SymbolsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_SymbolsModOffKeyFocusBitmap",
+                  "strOut": "symbols"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_AccentsModOnKeyBitmap",
+                  "focusIcon": "theme:DKB_AccentsModOnKeyFocusBitmap",
+                  "strOut": "accents"
+                }
+              ]
+            }
+          ]
+        },
+        {
+      "modes": "AccentsUpper",
+          "rows": [
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_CapsModOnKeyBitmap",
+                  "focusIcon": "theme:DKB_CapsModOnKeyFocusBitmap",
+                  "strOut": "capslock"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_ABC123ModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_ABC123ModOffKeyFocusBitmap",
+          "strOut": "abc123"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_SymbolsModOffKeyBitmap",
+                  "focusIcon": "theme:DKB_SymbolsModOffKeyFocusBitmap",
+                  "strOut": "symbols"
+                }
+              ]
+            },
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_AccentsModOnKeyBitmap",
+                  "focusIcon": "theme:DKB_AccentsModOnKeyFocusBitmap",
+                  "strOut": "accents"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionWidthFHD": 120,
+      "sectionWidthHD": 120,
+      "grids": [
+        {
+          "rows": [
+            {
+              "keys": [
+                {
+                  "icon": "theme:DKB_ClearKeyBitmap",
+                  "focusIcon": "theme:DKB_ClearKeyFocusBitmap",
+          "strOut": "clear"
+                }
+              ]
+            },
+            {
+            },
+            {
+            },
+            {
+              "keys": [
+                {
+                  "icon": "pkg:/images/icons/continue_white.png",
+                  "focusIcon": "pkg:/images/icons/continue_black.png",
+                  "strOut": "close"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

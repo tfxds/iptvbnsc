@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="SearchScreen" extends="BaseGroup" initialFocus="searchList">
+  <interface>
+    <field id="content" type="node" alwaysNotify="true" alias="searchList.content"/>
+    <field id="currentFilter" type="string" alwaysNotify="true"/>
+    <field id="filterSelected" type="integer" alias="ListFilters.rowItemSelected" alwaysNotify="true"/>
+    <field id="filterItemFocused" type="integer" alias="ListFilters.rowItemFocused" alwaysNotify="true"/>
+	<field id="jumpToItem" type="intarray" alias="searchList.jumpToItem" />
+	<field id="rowItemSelected" type="intarray" alwaysnotify="true" alias="searchList.rowItemSelected" />
+	<field id="searching" type="boolean" alwaysNotify="true"/>
+	<field id="showSpinner" type="boolean" alwaysNotify="true"/>
+    <function name="focusList"/>
+    <function name="focusKeyboard"/>
+  </interface>
+  <script type="text/brightscript" uri="SearchScreen.brs"/>
+    <script type="text/brightscript" uri="pkg:/source/assets.brs" />
+  <children>
+        <Poster id="bgPoster" uri="pkg:/images/login/bg_login.jpg" translation="[0,0]" />
+        <layoutGroup id="Box" layoutDirection = "vert" horizAlignment = "custom" vertAlignment = "custom">
+		    <Poster id="search_bar" width="1000" height="120"  uri = "pkg:/images/search/searchbar.png">
+		      <Poster id="lupa" width="40" height="40" uri="pkg:/images/search/lupa.png" translation="[55,40]"/>
+	          <TextEditBox id="editBox" width="760" height="40" textColor="#FFFFFF" hintTextColor = "#9FB6C6"  backgrounduri = "pkg:/images/login/transparent.png"  clearOnDownKey="false"/>
+			</Poster>
+            <RowList id="ListFilters" drawFocusFeedback="false" showRowCounter="[false]" translation="[26,150]" vertFocusAnimationStyle="floatingFocus" itemComponentName="SearchFilter" itemSize="[600,60]" rowHeights="[70]" numRows="1" rowItemSize="[[170,60]]" rowItemSpacing="[[20,10]]" focusXOffset="[0]" showRowLabel="[false,false]"/>
+            <Label id="noResultsLabel" width="750" height="44" horizAlign="center" vertAlign="top" visible="false" color="#c8dce8" wrap="true">
+              <Font role="font" size="26" uri="pkg:/fonts/Montserrat-Medium.ttf" />
+            </Label>
+		</layoutGroup>
+	    <RowList
+            id="searchList"
+            translation="[ 120, 600 ]"
+            itemComponentName="SearchItem"
+            numRows="1"
+            itemSize="[ 1680,500 ]"
+            itemSpacing = "[ 0, 40 ]"
+            rowItemSize="[ [260, 350] ]"
+            rowLabelOffset = "[ [0, 20] ]"
+            rowHeights="[500]"
+            vertFocusAnimationStyle="fixedFocus"
+            rowFocusAnimationStyle="floatingFocus"
+            showRowLabel="[true]"
+            showRowCounter="[true]"
+            rowItemSpacing="[ [20,0] ]"
+            drawFocusFeedback="true" />
+	    <Rectangle id="keyBox" color="0x101826F2" opacity="0.95" visible = "false">
+			<SearchKeyboard id = "searchKeyboard"/>
+	    </Rectangle>
+		<BusySpinner id="spinner" clockwise="true" spinInterval="0.8" visible="false" translation="[1160,400]"/>
+  </children>
+</component>

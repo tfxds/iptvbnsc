@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="epgLoaderTask" extends="Task">
+    <interface>
+        <field id="content" type="node" />
+		<field id="id" type="string" />
+    </interface>
+
+    <script type="text/brightscript" uri="epgLoaderTask.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+</component>

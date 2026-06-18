@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Avisa o painel do logout (limpa o registro do MAC) SEM travar a UI. O panelPost e
+     sincrono (rede) -> chamar direto na thread da cena congelava o app ao "Sair da conta". -->
+<component name="PanelLogoutTask" extends="Task">
+    <interface>
+        <field id="deviceId" type="string"/>
+    </interface>
+    <script type="text/brightscript" uri="PanelLogoutTask.brs"/>
+    <script type="text/brightscript" uri="pkg:/source/PanelClient.brs"/>
+</component>

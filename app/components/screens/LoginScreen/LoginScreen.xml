@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="LoginScreen" extends="BaseGroup" initialFocus="LoginBox" >
+	
+	<script type="text/brightscript" uri="LoginScreen.brs"/>
+    <script type="text/brightscript" uri="pkg:/source/PanelClient.brs" />
+    <script type="text/brightscript" uri="pkg:/source/assets.brs" />
+    <interface>
+	    <!-- Button press handler -->
+		<field id="status" type="string"/>
+      	<field id="validate" type="boolean" value="false" alwaysNotify="true"/>
+      	<field id="success" type="boolean" value="false"/>
+    </interface>
+	<children>
+		<!-- Fundo proprio do login (atras de tudo) — visual S.A Player -->
+		<Poster id="bgLogin" width="1920" height="1080" loadDisplayMode="scaleToFill" />
+
+		<!-- Texto de bienvenida en la parte superior central -->
+		<SimpleLabel
+			id="welcomeText"
+			horizOrigin="left"
+			vertOrigin="center"
+			text=""
+			color="0xffffff"
+			fontUri="pkg:/fonts/Montserrat-Black.ttf" />
+
+		<!-- Tagline ao lado/abaixo da logo -->
+		<SimpleLabel
+			id="taglineText"
+			horizOrigin="left"
+			vertOrigin="center"
+			text=""
+			color="0x9FB6C6"
+			fontSize="28"
+			fontUri="pkg:/fonts/Montserrat-Medium.ttf" />
+		
+		<!-- Logo en el lado izquierdo -->
+		<Poster id="logoImage" uri="pkg:/images/logologin.png" />
+		
+	    <Poster id ="LoginBox" uri="pkg:/images/login/login-form.png">
+            <!-- Reducir espaciado de 20 a 15 (25% menos) -->
+            <layoutGroup id="grp" layoutDirection = "vert" horizAlignment = "custom" vertAlignment = "custom" itemSpacings = "[15]">
+                <SimpleLabel
+                    id = "label"
+		            horizOrigin = "left"
+                    vertOrigin = "baseline"
+                    text = "Acesse sua conta"
+                    color = "0xffffff"
+                    fontUri = "pkg:/fonts/Montserrat-Black.ttf"/>
+                <Poster id ="codeEditBox" uri="pkg:/images/login/user-edit.png">
+                    <textEditBox id = "codeTextEditBox" hintText = " Codigo do revendedor" hintTextColor = "#9FB6C6" clearOnDownKey = "false" backgrounduri = "pkg:/images/login/transparent.png" />
+                </Poster>
+                <Poster id ="userEditBox" uri="pkg:/images/login/user-edit.png">
+                    <textEditBox id = "userTextEditBox" hintText = " Usuário" hintTextColor = "#9FB6C6" clearOnDownKey = "false" backgrounduri = "pkg:/images/login/transparent.png" />
+                </Poster>
+				<Poster id ="passEditBox" uri="pkg:/images/login/pass-edit.png">
+                    <textEditBox id = "passTextEditBox" hintText = " Senha" hintTextColor = "#9FB6C6" clearOnDownKey = "false" backgrounduri = "pkg:/images/login/transparent.png" />
+                </Poster>
+                <button
+                    id = "loginButton"
+                    text = ""
+		            showFocusFootprint = "true"
+                    textFont = "font:MediumBoldSystemFont"
+		            focusedTextFont = "font:MediumBoldSystemFont"
+		            focusedTextColor = "#ffff00"
+                    textColor = "#ffffff"
+		            horizAlign = "center"
+		            vertAlign = "center"
+		            iconUri = "" 
+		            focusedIconUri = ""
+		            focusFootprintBitmapUri = "pkg:/images/login/login.png"
+		            focusBitmapUri = "pkg:/images/login/loginFocus.png">
+                    <!-- Texto como Label proprio (centralizado). O <button> do Roku nao tem
+                         horizAlign e jogava "ENTRAR" pra direita. O button cuida do foco/clique. -->
+                    <Label id = "loginBtnLabel" text = "ENTRAR" horizAlign = "center" vertAlign = "center" color = "#ffffff">
+                        <Font role = "font" uri = "pkg:/fonts/Montserrat-Bold.ttf" size = "30"/>
+                    </Label>
+		        </button>
+
+            </layoutGroup>
+	    </Poster>
+		
+	    <Rectangle id="keyBox" color="0x000000FF" opacity="0.9">
+			<LoginKeyboard
+				id = "codeKeyboard"
+				visible = "false"/>
+			<LoginKeyboard
+				id = "userKeyboard"
+				visible = "false"/>
+			<LoginKeyboard
+				id = "passKeyboard"
+				visible = "false"/>
+	    </Rectangle>
+		
+        <Animation id="showAnimation" duration="0.2" easeFunction="linear">
+		    <Vector2DFieldInterpolator 
+		        id="showKey"
+			    fieldToInterp = "keyBox.translation"
+			    key = "[0,1]"
+			    keyValue = "[[0,1080],[0,830]]"/>
+        </Animation>
+        <Animation id="hideAnimation" duration="0.2" easeFunction="linear">
+		    <Vector2DFieldInterpolator 
+		        id="hideKey"
+			    fieldToInterp = "keyBox.translation"
+			    key = "[0,1]"
+			    keyValue = "[[0,830],[0,1080]]"/>
+        </Animation>
+
+		<!-- ========== SISTEMA DE CÓDIGOS - INICIO ========== -->
+		<!-- Panel de códigos - IZQUIERDA INFERIOR -->
+		<LayoutGroup
+			id="codeBox"
+			layoutDirection="vert"
+			itemSpacings="[12]"
+			translation="[60, 720]"
+			visible="false">
+			
+			<SimpleLabel
+				id="codeInstructionLabel"
+				text="MAC do seu aparelho — informe ao revendedor e toque em RECARREGAR:"
+				color="0xCCCCCC"
+				fontSize="20"
+				fontUri="pkg:/fonts/Montserrat-Black.ttf"
+				width="760" />
+
+			<SimpleLabel
+				id="activationCodeLabel"
+				text="--------"
+				color="0xFFFFFF"
+				fontSize="42"
+				fontUri="pkg:/fonts/Montserrat-Black.ttf"
+				width="700" />
+
+			<SimpleLabel
+				id="codeStatusLabel"
+				text=""
+				color="0xFF5555"
+				fontSize="18"
+				fontUri="pkg:/fonts/Montserrat-Black.ttf"
+				width="700" />
+
+			<!-- Botao Recarregar: re-consulta o painel por MAC sem fechar o app -->
+			<button
+				id="reloadButton"
+				text=""
+				showFocusFootprint="true"
+				textColor="#ffffff"
+				focusFootprintBitmapUri="pkg:/images/login/login.png"
+				focusBitmapUri="pkg:/images/login/loginFocus.png">
+				<Label id="reloadBtnLabel" text="RECARREGAR" horizAlign="center" vertAlign="center" color="#ffffff">
+					<Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="24"/>
+				</Label>
+			</button>
+		</LayoutGroup>
+		
+		<!-- ========== MAC DISPLAY - FIN ========== -->
+		
+		<!-- Footer en la parte inferior central -->
+		<SimpleLabel
+			id="footerText"
+			horizOrigin="center"
+			vertOrigin="center"
+			text=""
+			color="0xffffff"
+			fontUri="pkg:/fonts/Montserrat-Black.ttf" />
+		
+      </children>
+</component>

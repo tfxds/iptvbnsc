@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="HeaderActionItem" extends="BaseGroup">
+  <interface>
+    <field id="itemContent" type="node" onChange="onItemContentChange" />
+    <field id="width" type="float" onChange="onItemContentChange" />
+    <field id="height" type="float" onChange="onItemContentChange" />
+    <field id="focusPercent" type="float" onChange="onFocusChange" />
+  </interface>
+  <script type="text/brightscript" uri="HeaderActionItem.brs" />
+  <!-- Layout FIXO para itemSize [250,56] (nao depende de width/height da grade, que
+       pode nao ser setado -> pilula ficava 0x0/invisivel). Pilula INSET (borda nao corta). -->
+  <children>
+    <Poster id="pillBg" width="242" height="50" translation="[4,3]" uri="pkg:/images/menu/pill.png" />
+    <Poster id="icon" width="28" height="28" translation="[26,14]" />
+    <Label id="caption" color="0xffffff" width="162" height="56" vertAlign="center" translation="[64,0]">
+      <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="20" />
+    </Label>
+  </children>
+</component>

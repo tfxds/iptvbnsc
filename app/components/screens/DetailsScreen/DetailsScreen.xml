@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2021 XoceUnder.  All Rights Reserved. **********--> 
+
+<component name="DetailsScreen" extends="BaseGroup" initialFocus="Buttons" >
+    <script type="text/brightscript" uri="DetailsScreen.brs" />
+
+    <interface>
+        <!-- Content fields -->
+        <field id="content" type="node" />
+        <!-- @WriteOnly  -->
+        <!-- Manually focus on desired item. This field must be set after setting the content field. -->
+        <field id="jumpToItem" type="integer" onChange="OnJumpToItem" value="0" alwaysNotify="true" />
+        <!-- tells what item is currently focused  -->
+        <field id="itemFocused" type="integer" alwaysNotify="true" />     
+        <field id="buttonSelected" type="integer" alias="buttons.itemSelected" />
+    </interface>
+    <children>
+	<Backdrop id="backdrop" shade="0.8" maskColor="0x000000" />
+    <Group id="shiftUpGroup" >
+      <Label id="year" translation="[243, 0]" width="450" horizAlign="right" />
+      <Label id="genres" translation="[243, 40]" width="450" horizAlign="right" />
+    </Group>
+    <ScrollingLabel id="title" color="0xffffff" maxWidth="900" translation="[793, 200]" />
+    <Label id="description" translation="[793, 551]"
+      color="0xe6e6e6" horizAlign="left" vertAlign="bottom"
+      width="950" height="300"
+      wrap="true" />
+    <Rectangle id="descriptionLine" width="950" height="3" color="0xdddddd" translation="[793, 875]" />
+    <Label id="cast" translation="[793, 905]" width="950" wrap="true" />
+    <Label id="director" translation="[793, 945]" width="950" />
+    <MarkupList
+      id="buttons"
+      itemComponentName="ButtonItem"
+      vertFocusAnimationStyle="floatingFocus"
+      itemSize="[850, 72]"
+      translation="[813, 270]"
+      itemSpacing="[555, 9]" />
+    </children>
+</component>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="SearchFilter" extends="Group">
+<interface>
+    <field id="itemContent" type="node" onChange="itemContentChanged"/>
+    <field id = "focusPercent" type = "float" onChange = "showfocus" />
+    <field id = "itemHasFocus" type = "boolean" onChange = "itemHasFocus" />
+</interface>
+<script type="text/brightscript" uri="searchFilter.brs"/>
+<children>
+    <Poster id="itemPoster" width="150" height="54">
+      <Label id="itemText" horizAlign = "center" vertAlign = "center" color="#9FB6C6" width="150" height="54" >
+        <Font role="font" size="24" uri="pkg:/fonts/Montserrat-Bold.ttf" />
+      </Label>
+	</Poster>
+</children>
+</component>

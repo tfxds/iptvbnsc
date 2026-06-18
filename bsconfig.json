@@ -1,0 +1,5 @@
+{
+  "rootDir": "app",
+  "files": ["manifest", "source/**/*", "components/**/*"],
+  "createPackage": false
+}

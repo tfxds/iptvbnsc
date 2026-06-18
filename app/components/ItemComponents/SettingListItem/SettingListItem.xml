@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="SettingListItem" extends="BaseGroup">
+    <interface>
+        <field id = "itemContent" type = "node" onChange = "showcontent" />
+        <field id = "focusPercent" type = "float" onChange = "showfocus" />
+        <field id = "itemHasFocus" type = "boolean" onChange = "itemHasFocus" />
+    </interface>
+    <script type="text/brightscript" uri="SettingListItem.brs" />
+
+    <children>
+        <!-- Botao = ring (borda) + fill (fundo). O foco troca as cores no .brs (limpo,
+             proporcional, sem trocar PNG -> sem borda torta nem flicker). -->
+        <Rectangle id="itemRing" width="525" height="84" color="0x2A3B5CFF" translation="[0,0]">
+            <Rectangle id="itemFill" width="517" height="76" color="0x131D31FF" translation="[4,4]">
+                <Poster id="iconbox" width="52" height="52" loadDisplayMode="scaleToFit" uri="pkg:/images/settings/iconbox.png" translation="[14,12]">
+                    <Poster id="icon" loadDisplayMode="scaleToFit" width="30" height="30" translation="[11,11]" />
+                </Poster>
+                <Label id="title" width="410" height="72" wrap="true" maxLines="2" vertAlign="center" horizAlign="left" translation="[86,2]" color="#c8dce8">
+                    <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="24" />
+                </Label>
+            </Rectangle>
+        </Rectangle>
+    </children>
+</component>

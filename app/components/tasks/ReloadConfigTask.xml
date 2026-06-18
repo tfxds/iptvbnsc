@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Re-poll do painel por MAC SEM fechar o app. Usado pelo botao "Recarregar" da tela de
+     login: depois do revendedor cadastrar o MAC, o cliente toca em Recarregar e o app
+     re-consulta o painel e abre direto, sem precisar fechar e abrir de novo.
+     Roda em Task porque o poll (panelPoll) usa rede SINCRONA e travaria o render thread. -->
+<component name="ReloadConfigTask" extends="Task">
+    <interface>
+        <field id="done" type="boolean" alwaysNotify="true" />
+    </interface>
+    <script type="text/brightscript" uri="ReloadConfigTask.brs" />
+    <script type="text/brightscript" uri="pkg:/source/config.brs" />
+    <script type="text/brightscript" uri="pkg:/source/PanelClient.brs" />
+    <script type="text/brightscript" uri="pkg:/source/assets.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+</component>

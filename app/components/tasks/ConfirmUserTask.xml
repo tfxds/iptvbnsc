@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="ConfirmUserTask" extends="Task">
+
+	<interface>
+	  	<field id="user" type="string"/>
+	    <field id="pass" type="string"/>
+	    <field id="message" type="string"/>
+	    <field id="status" type="string"/>
+	  	<field id="auth" type="string" value="false"/>
+  	</interface>
+
+    <script type="text/brightscript" uri="ConfirmUserTask.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+</component>

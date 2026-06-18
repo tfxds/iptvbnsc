@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+  Modal de SAIR customizado (overlay proprio, mesmo visual do AccountScreenDialog).
+  Substitui o Dialog nativo do Roku (sem estilo). Exibido pelo MainScene via AppendChild.
+  Interface:
+    - action : "exit" (sair do app) ou "cancel" (fechar overlay)
+-->
+<component name="ExitScreenDialog" extends="Group" >
+
+<script type="text/brightscript" uri="pkg:/source/assets.brs" />
+<script type="text/brightscript" >
+<![CDATA[
+function init()
+    m.logoImage  = m.top.findNode("logoImage")
+    m.titleLabel = m.top.findNode("titleLabel")
+    m.subLabel   = m.top.findNode("subLabel")
+
+    ' WHITELABEL: logo do revendedor (mesma fonte do menu/home).
+    if m.logoImage <> invalid then m.logoImage.uri = getGlobalLogoMenu()
+
+    ' Nome de exibicao (revendedor sobrescreve via app_name).
+    nome = "Speed PlayerTech"
+    if m.global <> invalid and m.global.titulo <> invalid and m.global.titulo <> "" then nome = m.global.titulo
+    if m.subLabel <> invalid then m.subLabel.text = nome
+
+    m.btnExitRing   = m.top.findNode("btnExitRing")
+    m.btnExitFill   = m.top.findNode("btnExitFill")
+    m.btnExit       = m.top.findNode("btnExit")
+    m.btnCancelRing = m.top.findNode("btnCancelRing")
+    m.btnCancelFill = m.top.findNode("btnCancelFill")
+    m.btnCancel     = m.top.findNode("btnCancel")
+
+    ' foco inicial no "Cancelar" (acao segura por padrao)
+    m.focusIndex = 1
+    refreshButtonFocus()
+end function
+
+sub refreshButtonFocus()
+    if m.focusIndex = 0
+        ' Foco no "Sair": vermelho de alerta destacado.
+        m.btnExitRing.color = "0xF87171FF"
+        m.btnExitFill.color = "0xDC2626FF"
+        m.btnExit.color = "0xFFFFFFFF"
+        m.btnCancelRing.color = "0x2A3B5CFF"
+        m.btnCancelFill.color = "0x131D31FF"
+        m.btnCancel.color = "0x8FA6BEFF"
+    else
+        ' Foco no "Cancelar": claro/destacado. "Sair" volta pro discreto.
+        m.btnExitRing.color = "0x2A3B5CFF"
+        m.btnExitFill.color = "0x1B2740FF"
+        m.btnExit.color = "0x8FA6BEFF"
+        m.btnCancelRing.color = "0x4F9CFFFF"
+        m.btnCancelFill.color = "0x32507FFF"
+        m.btnCancel.color = "0xFFFFFFFF"
+    end if
+end sub
+
+function onKeyEvent(key as String, press as Boolean) as Boolean
+    if not press then return false
+
+    if key = "back"
+        m.top.action = "cancel"
+        return true
+    else if key = "left" or key = "up"
+        if m.focusIndex <> 0
+            m.focusIndex = 0
+            refreshButtonFocus()
+        end if
+        return true
+    else if key = "right" or key = "down"
+        if m.focusIndex <> 1
+            m.focusIndex = 1
+            refreshButtonFocus()
+        end if
+        return true
+    else if key = "OK"
+        if m.focusIndex = 0
+            m.top.action = "exit"
+        else
+            m.top.action = "cancel"
+        end if
+        return true
+    end if
+
+    return false
+end function
+]]>
+</script>
+
+<interface>
+  <field id="action" type="string" alwaysNotify="true" />
+</interface>
+
+<children>
+  <!-- Backdrop escurece a tela atras -->
+  <Rectangle id="backdrop" width="1920" height="1080" color="0x000000FF" opacity="0.65" />
+
+  <!-- Card centralizado -->
+  <Poster id="card"
+          uri="pkg:/images/account/card.png"
+          width="760" height="430"
+          loadDisplayMode="scaleToFill"
+          translation="[580, 325]">
+
+    <Poster id="logoImage"
+            width="150" height="150"
+            loadDisplayMode="scaleToFit"
+            translation="[305, 44]" />
+
+    <SimpleLabel id="titleLabel"
+            horizOrigin="center" vertOrigin="top"
+            text="Deseja sair do aplicativo?"
+            color="0xFFFFFFFF"
+            fontSize="36"
+            fontUri="pkg:/fonts/Montserrat-Black.ttf"
+            translation="[380, 210]" />
+
+    <SimpleLabel id="subLabel"
+            horizOrigin="center" vertOrigin="top"
+            text=""
+            color="0x9FB6C6FF"
+            fontSize="22"
+            fontUri="pkg:/fonts/Montserrat-Medium.ttf"
+            translation="[380, 262]" />
+
+    <!-- Botoes (Rectangles: ring + fill + label). Foco troca cores no init/refresh. -->
+    <Rectangle id="btnExitRing" width="208" height="66" color="0x2A3B5CFF" translation="[120, 320]">
+        <Rectangle id="btnExitFill" width="200" height="58" color="0x1B2740FF" translation="[4, 4]">
+            <SimpleLabel id="btnExit"
+                    horizOrigin="center" vertOrigin="center"
+                    text="Sair"
+                    color="0x8FA6BEFF"
+                    fontSize="23"
+                    fontUri="pkg:/fonts/Montserrat-Bold.ttf"
+                    translation="[100, 29]" />
+        </Rectangle>
+    </Rectangle>
+
+    <Rectangle id="btnCancelRing" width="208" height="66" color="0x4F9CFFFF" translation="[432, 320]">
+        <Rectangle id="btnCancelFill" width="200" height="58" color="0x32507FFF" translation="[4, 4]">
+            <SimpleLabel id="btnCancel"
+                    horizOrigin="center" vertOrigin="center"
+                    text="Cancelar"
+                    color="0xFFFFFFFF"
+                    fontSize="23"
+                    fontUri="pkg:/fonts/Montserrat-Bold.ttf"
+                    translation="[100, 29]" />
+        </Rectangle>
+    </Rectangle>
+
+  </Poster>
+</children>
+
+</component>

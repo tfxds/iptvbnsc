@@ -1,0 +1,16 @@
+[Unit]
+Description=HEVC remux proxy (TS->fMP4 para Roku)
+After=network.target
+
+[Service]
+# Preencher com os valores reais (NAO commitar credenciais reais):
+#   PANEL    = http://<host_painel>/live/<user>/<pass>
+#   BR_PROXY = http://<ip_relay_br>:8888
+Environment=PANEL=http://CHANGEME/live/USER/PASS
+Environment=BR_PROXY=http://CHANGEME:8888
+Environment=PORT=8090
+ExecStart=/usr/bin/python3 /opt/hevcproxy/proxy.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

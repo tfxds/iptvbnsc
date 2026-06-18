@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset=utf-8><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+html,body{width:1920px;height:1080px}
+.s{width:1920px;height:1080px;padding:60px 90px;color:#fff;
+ background:radial-gradient(1100px 700px at 50% 0%,rgba(40,95,255,.16),transparent 60%),linear-gradient(135deg,#0a1020,#0b1426 45%,#070b16)}
+.bar{display:flex;align-items:center;gap:18px;height:84px;border-radius:20px;padding:0 28px;background:rgba(255,255,255,.06);border:2px solid #3b78ff;box-shadow:0 0 0 4px rgba(59,120,255,.25);max-width:1000px;margin:0 auto}
+.bar svg{width:34px;height:34px;color:#8fb3ff}.bar span{font-size:30px;color:#8ea6b8}
+.tabs{display:flex;gap:18px;justify-content:center;margin:34px 0 40px}
+.tab{padding:0 40px;height:64px;border-radius:14px;display:flex;align-items:center;font-size:24px;font-weight:700;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#c8dce8}
+.tab.on{background:linear-gradient(135deg,#3b78ff,#1450e0);border-color:transparent}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:24px;max-width:1740px;margin:0 auto}
+.card{aspect-ratio:2/3;border-radius:16px;background:linear-gradient(160deg,#1a2740,#0e1626);border:1px solid rgba(255,255,255,.08)}
+.card.on{border:3px solid #3b78ff;box-shadow:0 0 0 4px rgba(59,120,255,.25)}
+</style></head><body><div class=s>
+ <div class=bar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><span>Pesquisar...</span></div>
+ <div class=tabs><div class="tab on">Canais</div><div class=tab>Filmes</div><div class=tab>Séries</div></div>
+ <div class=grid><div class="card on"></div><div class=card></div><div class=card></div><div class=card></div><div class=card></div><div class=card></div><div class=card></div><div class=card></div><div class=card></div><div class=card></div><div class=card></div><div class=card></div><div class=card></div><div class=card></div></div>
+</div></body></html>

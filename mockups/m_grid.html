@@ -1,0 +1,54 @@
+<!doctype html><html><head><meta charset=utf-8><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+html,body{width:1920px;height:1080px}
+.s{width:1920px;height:1080px;display:flex;color:#fff;
+ background:radial-gradient(1100px 700px at 30% 10%,rgba(40,95,255,.16),transparent 60%),linear-gradient(135deg,#0a1020,#0b1426 45%,#070b16)}
+.side{width:430px;background:rgba(10,16,30,.75);border-right:1px solid rgba(255,255,255,.08);padding:34px 28px;display:flex;flex-direction:column;gap:22px}
+.side .logo{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.side .logo img{width:54px;height:54px}.side .logo b{font-size:30px;font-weight:800}.side .logo b span{color:#3b78ff}
+.search{display:flex;align-items:center;gap:14px;height:64px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:0 20px;color:#8ea6b8;font-size:22px}
+.search svg{width:26px;height:26px;color:#8fb3ff}
+.cats{display:flex;flex-direction:column;gap:10px;margin-top:6px;overflow:hidden}
+.cat{height:60px;border-radius:12px;display:flex;align-items:center;padding:0 22px;font-size:23px;font-weight:600;color:#c8dce8;background:rgba(255,255,255,.03)}
+.cat.on{background:linear-gradient(135deg,#3b78ff,#1450e0);color:#fff;box-shadow:0 10px 26px rgba(20,80,224,.4)}
+.main{flex:1;padding:38px 50px}
+.head{display:flex;align-items:center;gap:18px;margin-bottom:30px}
+.head h1{font-size:46px;font-weight:900;letter-spacing:-1px}
+.head .badge{background:rgba(59,120,255,.16);border:1px solid rgba(120,160,255,.4);color:#9fc0ff;font-size:20px;font-weight:700;padding:8px 18px;border-radius:30px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:30px 26px}
+.card{display:flex;flex-direction:column;gap:12px}
+.poster{height:320px;border-radius:16px;background:linear-gradient(160deg,#22304d,#101826);border:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden}
+.card.on .poster{border:4px solid #3b78ff;box-shadow:0 0 0 5px rgba(59,120,255,.3)}
+.poster .pl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.25}
+.poster .pl svg{width:60px;height:60px;color:#9fc0ff}
+.card .t{font-size:21px;font-weight:600;color:#dce8f2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card.on .t{color:#fff}
+</style></head><body><div class=s>
+ <div class=side>
+  <div class=logo><img src="sa_logo.png"><b>S.A <span>Player</span></b></div>
+  <div class=search><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Pesquisar...</div>
+  <div class=cats>
+   <div class="cat on">★ Lançamentos 2026</div>
+   <div class=cat>Ação</div><div class=cat>Aventura</div><div class=cat>Comédia</div>
+   <div class=cat>Terror</div><div class=cat>Animação</div><div class=cat>Documentário</div>
+   <div class=cat>Nacionais</div><div class=cat>Clássicos</div>
+  </div>
+ </div>
+ <div class=main>
+  <div class=head><h1>FILMES</h1><div class=badge>1.248 títulos</div></div>
+  <div class=grid>
+   <div class="card on"><div class=poster><div class=pl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="6 4 20 12 6 20"/></svg></div></div><div class=t>Duna · Parte 2</div></div>
+   <div class=card><div class=poster></div><div class=t>Oppenheimer</div></div>
+   <div class=card><div class=poster></div><div class=t>Pobres Criaturas</div></div>
+   <div class=card><div class=poster></div><div class=t>Godzilla x Kong</div></div>
+   <div class=card><div class=poster></div><div class=t>Furiosa</div></div>
+   <div class=card><div class=poster></div><div class=t>Deadpool & Wolverine</div></div>
+   <div class=card><div class=poster></div><div class=t>O Menino e a Garça</div></div>
+   <div class=card><div class=poster></div><div class=t>Civil War</div></div>
+   <div class=card><div class=poster></div><div class=t>Kung Fu Panda 4</div></div>
+   <div class=card><div class=poster></div><div class=t>Anatomia de uma Queda</div></div>
+   <div class=card><div class=poster></div><div class=t>Argylle</div></div>
+   <div class=card><div class=poster></div><div class=t>Madame Teia</div></div>
+  </div>
+ </div>
+</div></body></html>

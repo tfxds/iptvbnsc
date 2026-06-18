@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Item do menu lateral da Home (icone + texto alinhados a esquerda, com realce ao focar). -->
+<component name="SideMenuItem" extends="Group">
+  <interface>
+    <field id="itemContent" type="node" onChange="onContentSet" />
+    <field id="focusPercent" type="float" onChange="onFocusChange" />
+  </interface>
+  <script type="text/brightscript" uri="SideMenuItem.brs" />
+  <children>
+    <Poster id="hl" width="320" height="60" uri="pkg:/images/menu/pill_focus.png" opacity="0" />
+    <Poster id="icon" width="32" height="32" translation="[22,14]" loadDisplayMode="scaleToFit" />
+    <Label id="caption" translation="[70,0]" width="236" height="60" vertAlign="center" horizAlign="left" color="0xbcd0e8ff">
+      <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="23" />
+    </Label>
+  </children>
+</component>

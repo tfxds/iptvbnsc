@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2020 Roku Corp.  All Rights Reserved. **********--> 
+<component name="VideoScreenDeep" extends="BaseGroup" initialFocus="player">
+    <script type="text/brightscript" uri="VideoScreen.brs" />
+    <interface>
+        <!--  ContentNode with playlist items -->
+        <field id="content" type="node"  onChange="OnIndexChanged" />
+        <!-- VideoScreen will be closed once close set to "true" -->
+        <field id="closeBack" type="bool" />
+    </interface>
+    <children>
+        <Video
+            id="player"
+        />
+    </children>
+</component>

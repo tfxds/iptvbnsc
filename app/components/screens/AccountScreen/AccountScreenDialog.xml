@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+  Modal de conta CUSTOMIZADO (overlay proprio, NAO StandardDialog).
+  StandardDialog + RSGPalette nao deixava escuro o suficiente; aqui montamos
+  um Group full-screen com backdrop + card de vidro escuro, igual ao mockup.
+  Exibido via ShowScreen() (screen stack) pelo MenuScreenLogic.
+  Campos de interface preservados:
+    - action  : vira "logout" quando o usuario escolhe "Sair da conta"
+    - closeMe : vira true quando o usuario cancela / aperta BACK (MenuScreenLogic fecha)
+-->
+<component name="AccountScreenDialog" extends="Group" >
+
+<script type="text/brightscript" uri="pkg:/source/assets.brs" />
+<script type="text/brightscript" >
+<![CDATA[
+function init()
+    m.backdrop   = m.top.findNode("backdrop")
+    m.card       = m.top.findNode("card")
+    m.logoImage  = m.top.findNode("logoImage")
+    m.dataLabel  = m.top.findNode("dataLabel")
+
+    ' WHITELABEL: usa a logo do revendedor — EXATAMENTE a mesma do MenuScreen/headerLogo,
+    ' que tambem chama getGlobalLogoMenu() (resolve URL remota do revendedor com fallback
+    ' pro logo local). Mesma fonte/campo (m.global.logomenu) do headerLogo da home.
+    if m.logoImage <> invalid and m.global <> invalid
+        m.logoImage.uri = getGlobalLogoMenu()
+    end if
+    m.btnLogout     = m.top.findNode("btnLogout")
+    m.btnCancel     = m.top.findNode("btnCancel")
+    m.btnLogoutRing = m.top.findNode("btnLogoutRing")
+    m.btnLogoutFill = m.top.findNode("btnLogoutFill")
+    m.btnCancelRing = m.top.findNode("btnCancelRing")
+    m.btnCancelFill = m.top.findNode("btnCancelFill")
+
+    populateData()
+
+    ' foco inicial no botao "Sair da conta"
+    m.focusIndex = 0
+    refreshButtonFocus()
+end function
+
+' Monta as 3 linhas (Usuario / Conexoes / Validade) — so esses 3 dados.
+sub populateData()
+    ' TUDO via AnyToString: active_cons/max_connections vem como NUMERO -> "texto" + numero
+    ' dava Type Mismatch e CRASHAVA o init (modal sem dados + botoes mortos).
+    user = s2(m.global.user)
+    active = s2(m.global.active_cons)
+    maxc = s2(m.global.max_connections)
+
+    valid = s2(m.global.expire)
+    if valid <> "Never" and valid <> ""
+        dt = CreateObject("roDateTime")
+        dt.fromSeconds(valid.toInt())
+        valid = dt.AsDateString("short-month-no-weekday")
+    end if
+
+    dev = s2(m.global.GetModel)
+    ' Mostra o MAC do dispositivo (o mesmo que o painel/revenda usa pra autorizar), nao o
+    ' serial/ESN do Roku. Fallback no ESN caso o MAC nao tenha sido derivado.
+    mac = s2(m.global.deviceMac)
+    if mac = "" then mac = s2(m.global.rokuUniqueID)
+
+    line1 = tr("Usuário:") + "   " + user
+    line2 = tr("Validade:") + "   " + valid
+    line3 = tr("Conexões:") + "   " + active + " / " + maxc
+    line4 = tr("Dispositivo:") + "   " + dev
+    line5 = tr("MAC:") + "   " + mac
+    m.dataLabel.text = line1 + chr(10) + line2 + chr(10) + line3 + chr(10) + line4 + chr(10) + line5
+end sub
+
+' Helper LOCAL (este componente nao inclui generalUtils, entao AnyToString nao existe aqui).
+' Converte numero/texto/invalid pra string com seguranca -> evita Type Mismatch e crash.
+function s2(v as dynamic) as string
+    if v = invalid then return ""
+    t = type(v)
+    if t = "roString" or t = "String" then return v
+    if t = "Integer" or t = "roInt" or t = "Float" or t = "roFloat" or t = "Double" or t = "roDouble" or t = "LongInteger" or t = "roLongInteger" then return v.ToStr()
+    return ""
+end function
+
+' Atualiza visual de foco dos dois botoes (troca o fundo e a cor do texto).
+sub refreshButtonFocus()
+    if m.focusIndex = 0
+        ' Foco no "Sair": azul forte + borda clara. "Cancelar": escuro, borda discreta.
+        m.btnLogoutRing.color = "0x4F9CFFFF"
+        m.btnLogoutFill.color = "0x2563EBFF"
+        m.btnLogout.color = "0xFFFFFFFF"
+        m.btnCancelRing.color = "0x2A3B5CFF"
+        m.btnCancelFill.color = "0x131D31FF"
+        m.btnCancel.color = "0x8FA6BEFF"
+    else
+        ' Foco no "Cancelar": agora ELE fica claro/destacado. "Sair" volta pro discreto.
+        m.btnLogoutRing.color = "0x2A3B5CFF"
+        m.btnLogoutFill.color = "0x1B2740FF"
+        m.btnLogout.color = "0x8FA6BEFF"
+        m.btnCancelRing.color = "0x4F9CFFFF"
+        m.btnCancelFill.color = "0x32507FFF"
+        m.btnCancel.color = "0xFFFFFFFF"
+    end if
+end sub
+
+' "Sair da conta" => sinaliza logout pro MenuScreenLogic (que tem o screen stack).
+sub selectLogout()
+    m.top.action = "logout"
+end sub
+
+' Cancelar / BACK => pede pro MenuScreenLogic fechar este overlay.
+sub closeOverlay()
+    m.top.closeMe = true
+end sub
+
+function onKeyEvent(key as String, press as Boolean) as Boolean
+    if not press then return false
+
+    if key = "back"
+        closeOverlay()
+        return true
+    else if key = "left"
+        if m.focusIndex <> 0
+            m.focusIndex = 0
+            refreshButtonFocus()
+        end if
+        return true
+    else if key = "right"
+        if m.focusIndex <> 1
+            m.focusIndex = 1
+            refreshButtonFocus()
+        end if
+        return true
+    else if key = "up"
+        if m.focusIndex <> 0
+            m.focusIndex = 0
+            refreshButtonFocus()
+        end if
+        return true
+    else if key = "down"
+        if m.focusIndex <> 1
+            m.focusIndex = 1
+            refreshButtonFocus()
+        end if
+        return true
+    else if key = "OK"
+        if m.focusIndex = 0
+            selectLogout()
+        else
+            closeOverlay()
+        end if
+        return true
+    end if
+
+    return false
+end function
+
+]]>
+</script>
+
+<interface>
+  <field id="action" type="string" alwaysNotify="true" />
+  <field id="closeMe" type="bool" alwaysNotify="true" />
+</interface>
+
+<children>
+  <!-- Backdrop escurece a home atras -->
+  <Rectangle id="backdrop" width="1920" height="1080" color="0x000000FF" opacity="0.6" />
+
+  <!-- Card de vidro escuro centralizado -->
+  <Poster id="card"
+          uri="pkg:/images/account/card.png"
+          width="900" height="520"
+          loadDisplayMode="scaleToFill"
+          translation="[510, 280]">
+
+    <!-- ===== Painel esquerdo: logo + nome ===== -->
+    <Poster id="logoImage"
+            uri="pkg:/images/saplayer_logo.png"
+            width="150" height="150"
+            loadDisplayMode="scaleToFit"
+            translation="[95, 150]" />
+
+    <!-- WHITELABEL: nome fixo "S.A Player" removido — a logo do revendedor (logoImage)
+         ja representa a marca. Mantido oculto pra nao mostrar marca fixa. -->
+    <SimpleLabel id="brandName"
+            visible="false"
+            horizOrigin="left" vertOrigin="top"
+            text=""
+            color="0xFFFFFFFF"
+            fontSize="34"
+            fontUri="pkg:/fonts/Montserrat-Black.ttf"
+            translation="[70, 310]" />
+
+    <SimpleLabel id="brandSub"
+            horizOrigin="left" vertOrigin="top"
+            text="Minha conta"
+            color="0x9FB6C6FF"
+            fontSize="20"
+            fontUri="pkg:/fonts/Montserrat-Medium.ttf"
+            translation="[70, 352]" />
+
+    <!-- ===== Painel direito: titulo + dados + botoes ===== -->
+    <SimpleLabel id="title"
+            horizOrigin="left" vertOrigin="top"
+            text="Meus dados"
+            color="0xFFFFFFFF"
+            fontSize="40"
+            fontUri="pkg:/fonts/Montserrat-Black.ttf"
+            translation="[400, 80]" />
+
+    <Rectangle id="titleDivider"
+            width="430" height="2"
+            color="0x2A3B5CFF"
+            translation="[400, 138]" />
+
+    <Label id="dataLabel"
+            width="430" height="220"
+            wrap="true"
+            text=""
+            color="0xC8DCE8FF"
+            lineSpacing="14"
+            translation="[400, 168]">
+        <Font role="font" uri="pkg:/fonts/Montserrat-SemiBold.ttf" size="23" />
+    </Label>
+
+    <!-- Botoes (Rectangles: foco simetrico e proporcional, sem PNG). Cada botao =
+         ring (borda) + fill (fundo) + label. O foco troca as cores no .brs. -->
+    <Rectangle id="btnLogoutRing" width="208" height="66" color="0x4F9CFFFF" translation="[398, 418]">
+        <Rectangle id="btnLogoutFill" width="200" height="58" color="0x2563EBFF" translation="[4, 4]">
+            <SimpleLabel id="btnLogout"
+                    horizOrigin="center" vertOrigin="center"
+                    text="Sair da conta"
+                    color="0xFFFFFFFF"
+                    fontSize="23"
+                    fontUri="pkg:/fonts/Montserrat-Bold.ttf"
+                    translation="[100, 29]" />
+        </Rectangle>
+    </Rectangle>
+
+    <Rectangle id="btnCancelRing" width="208" height="66" color="0x2A3B5CFF" translation="[622, 418]">
+        <Rectangle id="btnCancelFill" width="200" height="58" color="0x131D31FF" translation="[4, 4]">
+            <SimpleLabel id="btnCancel"
+                    horizOrigin="center" vertOrigin="center"
+                    text="Cancelar"
+                    color="0x8FA6BEFF"
+                    fontSize="23"
+                    fontUri="pkg:/fonts/Montserrat-Bold.ttf"
+                    translation="[100, 29]" />
+        </Rectangle>
+    </Rectangle>
+
+  </Poster>
+</children>
+
+</component>

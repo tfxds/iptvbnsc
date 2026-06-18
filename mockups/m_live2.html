@@ -1,0 +1,74 @@
+<!doctype html><html><head><meta charset=utf-8><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+html,body{width:1920px;height:1080px}
+.s{width:1920px;height:1080px;padding:36px 40px;color:#fff;display:flex;gap:26px;
+ background:radial-gradient(1200px 800px at 15% 0%,rgba(40,95,255,.16),transparent 60%),linear-gradient(135deg,#0a1020,#0b1426 45%,#070b16)}
+.col{border-radius:22px;background:rgba(13,21,40,.72);border:1px solid rgba(150,180,255,.14)}
+/* esquerda */
+.cats{width:360px;padding:22px 16px;display:flex;flex-direction:column;gap:7px}
+.cats h3{font-size:24px;font-weight:800;color:#9fc0ff;padding:4px 12px 14px}
+.cat{display:flex;justify-content:space-between;align-items:center;height:58px;padding:0 18px;border-radius:13px;font-size:22px;font-weight:600;color:#c8dce8}
+.cat .n{background:rgba(255,255,255,.07);border-radius:20px;padding:3px 13px;font-size:18px;color:#8ea6b8;font-weight:700}
+.cat.on{background:linear-gradient(135deg,#3b78ff,#1450e0);color:#fff}
+.cat.on .n{background:rgba(255,255,255,.22);color:#fff}
+/* meio */
+.chs{width:600px;padding:18px 14px;display:flex;flex-direction:column;gap:6px}
+.ch{display:flex;align-items:center;gap:16px;height:64px;padding:0 16px;border-radius:13px;background:rgba(255,255,255,.03)}
+.ch .num{width:34px;text-align:center;font-size:20px;font-weight:700;color:#6f8aa8}
+.ch .lg{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#9fc0ff;flex-shrink:0}
+.ch .nm{font-size:23px;font-weight:600;color:#dce8f2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ch.on{background:linear-gradient(135deg,rgba(59,120,255,.9),rgba(20,80,224,.9));box-shadow:0 8px 22px rgba(20,80,224,.4)}
+.ch.on .nm,.ch.on .num{color:#fff}
+.ch.on .lg{background:rgba(255,255,255,.22);color:#fff}
+/* direita */
+.right{flex:1;display:flex;flex-direction:column;gap:20px;background:none;border:none}
+.prev{width:100%;height:472px;border-radius:20px;border:3px solid #3b78ff;box-shadow:0 0 0 4px rgba(59,120,255,.22);position:relative;overflow:hidden;
+ background:linear-gradient(160deg,#16335f,#0a1626);display:flex;align-items:center;justify-content:center}
+.prev .live{position:absolute;top:18px;left:18px;display:flex;align-items:center;gap:9px;background:rgba(255,55,55,.22);border:1px solid rgba(255,90,90,.6);color:#ff9a9a;font-size:18px;font-weight:800;padding:7px 16px;border-radius:22px}
+.prev .live i{width:12px;height:12px;border-radius:50%;background:#ff4d4d}
+.prev .pl svg{width:96px;height:96px;color:rgba(159,192,255,.45)}
+.info{flex:1;border-radius:20px;background:rgba(13,21,40,.72);border:1px solid rgba(150,180,255,.14);padding:28px 32px}
+.info h2{font-size:40px;font-weight:900;letter-spacing:-1px;margin-bottom:6px}
+.info .now{font-size:24px;color:#fff;font-weight:700;margin-bottom:4px}
+.info .tm{font-size:21px;color:#3b9bff;font-weight:700;margin-bottom:16px}
+.bar{height:9px;border-radius:6px;background:rgba(255,255,255,.10);overflow:hidden;margin-bottom:18px}
+.bar i{display:block;height:100%;width:58%;background:linear-gradient(90deg,#3b78ff,#5a90ff)}
+.info p{font-size:22px;line-height:1.5;color:#9fb0c8}
+</style></head><body><div class=s>
+ <div class="col cats">
+  <h3>Categorias</h3>
+  <div class="cat on">Tudo <span class=n>1176</span></div>
+  <div class=cat>Favoritos <span class=n>0</span></div>
+  <div class=cat>Globo Sudeste <span class=n>68</span></div>
+  <div class=cat>Globo Centro-Oeste <span class=n>12</span></div>
+  <div class=cat>Globo Sul <span class=n>47</span></div>
+  <div class=cat>Esportes <span class=n>54</span></div>
+  <div class=cat>SporTV <span class=n>9</span></div>
+  <div class=cat>ESPN <span class=n>7</span></div>
+  <div class=cat>Filmes &amp; Séries <span class=n>120</span></div>
+  <div class=cat>Notícias <span class=n>18</span></div>
+  <div class=cat>Infantil <span class=n>22</span></div>
+ </div>
+ <div class="col chs">
+  <div class=ch><span class=num>8</span><span class=lg>GB</span><span class=nm>Globo SP UHD 4K</span></div>
+  <div class=ch><span class=num>9</span><span class=lg>GB</span><span class=nm>Globo SP FHD</span></div>
+  <div class="ch on"><span class=num>10</span><span class=lg>GB</span><span class=nm>Globo SP FHD H265</span></div>
+  <div class=ch><span class=num>11</span><span class=lg>GB</span><span class=nm>Globo SP HD</span></div>
+  <div class=ch><span class=num>12</span><span class=lg>GB</span><span class=nm>Globo RJ FHD</span></div>
+  <div class=ch><span class=num>13</span><span class=lg>SP</span><span class=nm>SporTV FHD</span></div>
+  <div class=ch><span class=num>14</span><span class=lg>ES</span><span class=nm>ESPN HD</span></div>
+  <div class=ch><span class=num>15</span><span class=lg>CX</span><span class=nm>Cinemax HD</span></div>
+  <div class=ch><span class=num>16</span><span class=lg>TN</span><span class=nm>TNT Series FHD</span></div>
+  <div class=ch><span class=num>17</span><span class=lg>AX</span><span class=nm>AXN FHD H265</span></div>
+ </div>
+ <div class=right>
+  <div class=prev><div class=live><i></i>AO VIVO</div><div class=pl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="6 4 20 12 6 20"/></svg></div></div>
+  <div class=info>
+   <h2>Globo SP FHD H265</h2>
+   <div class=now>Agora: Jornal Nacional</div>
+   <div class=tm>20:30 — 21:15</div>
+   <div class=bar><i></i></div>
+   <p>As principais notícias do Brasil e do mundo, com reportagens especiais e cobertura ao vivo dos acontecimentos do dia.</p>
+  </div>
+ </div>
+</div></body></html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+  html,body { width:1920px; height:1080px; overflow:hidden; }
+  .stage {
+    position:relative; width:1920px; height:1080px;
+    background:
+      radial-gradient(1200px 800px at 20% 25%, rgba(40,95,255,0.20), transparent 60%),
+      radial-gradient(1000px 700px at 85% 80%, rgba(80,40,160,0.20), transparent 60%),
+      linear-gradient(135deg, #0a1020 0%, #0b1426 45%, #070b16 100%);
+    color:#fff;
+  }
+  /* brilho/poster faint */
+  .blob { position:absolute; border-radius:50%; filter:blur(80px); opacity:.5; }
+  .b1{ width:520px;height:520px; left:-120px; top:-120px; background:#1a52d8;}
+  .b2{ width:460px;height:460px; right:-90px; bottom:-120px; background:#5b3aa6;}
+
+  /* topo */
+  .top { position:absolute; top:46px; left:64px; right:64px; display:flex; justify-content:space-between; align-items:center; }
+  .clock { font-size:30px; font-weight:600; color:#cfe6f2; letter-spacing:.5px; }
+  .conn { font-size:22px; color:#7f99ad; display:flex; align-items:center; gap:10px;}
+  .dot { width:12px;height:12px;border-radius:50%; background:#2ecc71; box-shadow:0 0 10px #2ecc71;}
+
+  /* esquerda: marca */
+  .brand { position:absolute; left:130px; top:50%; transform:translateY(-50%); }
+  .logo { display:flex; align-items:center; gap:18px; }
+  .logo img { width:170px; height:170px; filter:drop-shadow(0 18px 40px rgba(43,108,255,.45)); }
+  .logo h1 { font-size:84px; font-weight:800; letter-spacing:-2px; line-height:.9; }
+  .logo h1 span{ color:#3b78ff;}
+  .tag { margin-top:22px; font-size:30px; color:#9fb6c6; font-weight:500; letter-spacing:.3px; padding-left:6px;}
+
+  /* card login */
+  .card {
+    position:absolute; right:160px; top:50%; transform:translateY(-50%);
+    width:620px; padding:54px 56px 48px;
+    background:rgba(18,28,46,0.62);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:34px;
+    backdrop-filter: blur(18px);
+    box-shadow:0 30px 80px rgba(0,0,0,.55);
+  }
+  .card h2 { font-size:40px; font-weight:700; margin-bottom:8px;}
+  .card p.sub { font-size:22px; color:#8ea6b8; margin-bottom:36px;}
+  .field { margin-bottom:24px;}
+  .field label { display:block; font-size:18px; color:#8ea6b8; font-weight:600; margin-bottom:10px; text-transform:uppercase; letter-spacing:1.5px;}
+  .input {
+    height:74px; border-radius:18px; display:flex; align-items:center; gap:16px; padding:0 22px;
+    background:rgba(255,255,255,0.06); border:2px solid rgba(255,255,255,0.10);
+    font-size:26px; color:#e7eef4;
+  }
+  .input .ph{ color:#7c93a6;}
+  .input.focus {
+    border-color:#3b78ff;
+    background:rgba(59,120,255,0.12);
+    box-shadow:0 0 0 4px rgba(59,120,255,0.30), 0 10px 30px rgba(59,120,255,0.12);
+  }
+  .input .ico{ color:#6f8597; display:flex;}
+  .input.focus .ico{ color:#3b78ff;}
+  .btn {
+    margin-top:10px; height:80px; border-radius:18px;
+    background:linear-gradient(135deg,#3b78ff,#1450e0);
+    display:flex;align-items:center;justify-content:center; gap:14px;
+    font-size:28px; font-weight:800; letter-spacing:3px;
+    box-shadow:0 18px 40px rgba(20,80,224,.45);
+  }
+
+  /* rodape MAC */
+  .mac { position:absolute; left:140px; bottom:70px; }
+  .mac .lbl{ font-size:18px; color:#7c93a6; margin-bottom:10px; letter-spacing:.5px;}
+  .mac .chip{
+    display:inline-flex; align-items:center; gap:14px; padding:14px 22px; border-radius:14px;
+    background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10);
+    font-size:30px; font-weight:700; color:#cfe6f2; letter-spacing:2px; font-family:'Consolas',monospace;
+  }
+  .footer { position:absolute; right:160px; bottom:70px; font-size:20px; color:#5f7488;}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="blob b1"></div><div class="blob b2"></div>
+
+    <div class="top">
+      <div class="clock">21:34 &nbsp; ter, 09 jun</div>
+      <div class="conn"><span class="dot"></span> Conectado à internet</div>
+    </div>
+
+    <div class="brand">
+      <div class="logo">
+        <img src="sa_logo.png" alt="S.A Player">
+        <h1>S.A<br><span>Player</span></h1>
+      </div>
+      <div class="tag">Seu cinema, ao vivo, na sua TV.</div>
+    </div>
+
+    <div class="card">
+      <h2>Acesse sua conta</h2>
+      <p class="sub">Use os dados do seu revendedor</p>
+
+      <div class="field">
+        <label>Código do revendedor</label>
+        <div class="input focus">
+          <span class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h5M7 13h8"/></svg></span>
+          <span>conecta-sa</span><span style="margin-left:auto;width:3px;height:34px;background:#3b78ff;border-radius:2px"></span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Usuário</label>
+        <div class="input">
+          <span class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+          <span class="ph">Seu usuário</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Senha</label>
+        <div class="input">
+          <span class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+          <span class="ph">••••••••</span>
+        </div>
+      </div>
+
+      <div class="btn">ENTRAR</div>
+    </div>
+
+    <div class="mac">
+      <div class="lbl">MAC do aparelho — informe ao seu revendedor</div>
+      <div class="chip">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3b78ff" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+        D4:3A:7E:91:2C:F0
+      </div>
+    </div>
+    <div class="footer">S.A Player • v4.4</div>
+  </div>
+</body>
+</html>

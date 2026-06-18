@@ -1,0 +1,88 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<component name = "SettingScreen" extends = "BaseGroup" initialFocus="menu">
+
+    <interface>
+        <field id="itemFocused" type="node" alias="menu.itemFocused" />
+        <field id="itemSelected" type="node" alias="menu.itemSelected"  />
+		<field id="channelCategory" type="array" alwaysNotify="true"/>
+		<field id="moviesCategory" type="array" alwaysNotify="true" />
+		<field id="seriesCategory" type="array" alwaysNotify="true" />
+		<field id="quality" type="string" alwaysNotify="true" />
+		<field id="pin" type="integer" alias="pinWidget.pin" alwaysNotify="true" /> 
+    </interface>
+
+    <script type = "text/brightscript" uri="Settings.brs" />
+    <script type="text/brightscript" uri="pkg:/source/assets.brs" />
+    <script type="text/brightscript" uri="pkg:/source/PanelClient.brs" />
+  
+    <children>
+		<Poster id="bgSettings" uri="pkg:/images/login/bg_login.jpg" />
+
+		<!-- ===== HEADER (logo do revendedor EM CIMA + titulo embaixo: limpo com qualquer
+		           formato de logo, banner largo ou quadrado) ===== -->
+		<Poster id="headerLogo" width="220" height="70" loadDisplayMode="scaleToFit" translation="[90, 40]" />
+		<Label id="headerTitle" text="CONFIGURAÇÕES" color="0xFFFFFFFF" translation="[92, 122]">
+			<Font role="font" uri="pkg:/fonts/Montserrat-Black.ttf" size="34" />
+		</Label>
+		<Label id="headerSub" text="Ajustes do aplicativo e da sua conta" color="0x9FB6C6FF" translation="[94, 168]">
+			<Font role="font" uri="pkg:/fonts/Montserrat-Medium.ttf" size="20" />
+		</Label>
+
+		<!-- ===== CARD DE VIDRO atras do menu (ring + fill, igual aos itens) ===== -->
+		<Rectangle id="menuGlassRing" color="0x2A3B5CFF" />
+		<Rectangle id="menuGlassFill" color="0x0F1830D9" />
+
+		<Poster id="MainMenu" width="650" height="450" uri="pkg:/images/login/transparent.png" translation="[105, 300]">
+            <Label id = "settingLabel" translation="[50, 20]" color = "#ffffff" >
+                <Font role="font" uri="pkg:/fonts/Montserrat-Black.ttf" size="32" />
+            </Label>
+            <MarkupList
+                id  = "menu"
+				translation="[60, 80]"
+				itemSize ="[525,84]"
+				numRows = "7"
+				itemSpacing = "[ 0, 14 ]"
+                itemComponentName = "SettingListItem"
+                wrapDividerBitmapUri = ""
+                wrapDividerHeight = "0"
+		        drawFocusFeedback = "false"
+                vertFocusAnimationStyle = "floatingFocus"/>
+		</Poster>
+		<Poster id="MainInfo" width="850" height="950" uri="pkg:/images/settings/panel_dark.png">
+    	    <Label id="title" width="700" horizAlign="center" vertAlign="center" wrap="true" numLines="1" maxLines="1" >
+			    <Font role = "font" uri = "pkg:/fonts/Montserrat-Black.ttf" size = "40" />
+		    </Label>
+		    <Rectangle id="infoDivider" width="430" height="2" color="0x2A3B5CFF" visible="false" />
+		    <Label id="message" width="700" horizAlign="center" vertAlign="center" wrap="true" numLines="6" maxLines="6" font="font:SmallSystemFont" />
+		    <CheckList
+			    id="checklist"
+			    numRows = "7"
+			    visible="false"
+			    translation="[30,150]"
+				checkedIconUri="pkg:/images/icons/checked.png"
+				focusedCheckedIconUri="pkg:/images/icons/checked_focus.png"
+				uncheckedIconUri="pkg:/images/icons/unchecked.png"
+				focusedUncheckedIconUri="pkg:/images/icons/unchecked_focus.png"
+			    itemSize="[450,72]"
+			    textHorizAlign="left" >
+			    <ContentNode role="content" />
+		    </CheckList>
+		    <RadioButtonList
+			    id="radiolist"
+				numRows = "7"
+			    visible="false"
+			    translation="[600,150]"
+				checkedIconUri="pkg:/images/icons/radio.png"
+				focusedCheckedIconUri="pkg:/images/icons/radio_focus.png"
+			    itemSize="[450,72]"
+			    textHorizAlign="left" >
+			<ContentNode role="content" />
+		    </RadioButtonList>
+			<ScrollingLabel id="titlePin" maxWidth="685" text="Enter Current PIN" font="font:MediumBoldSystemFont" horizAlign="center" />
+		    <PinPad id="pinWidget" secureMode="true" pinLength="4" translation="[30,150]"/>
+			<Poster id="delete" width="350" height="350" uri="pkg:/images/trash.png" visible="false"/>
+			<ScrollingLabel id="bottomPin" maxWidth="685" font="font:SmallBoldSystemFont" horizAlign="center" translation="[0,450]"/>
+		</Poster>
+  </children>
+</component>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="ResumeVideo" extends="Task">
+	
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+	<script type="text/brightscript">
+		<![CDATA[
+		sub init()
+		    ''print "In ResumeVideo"
+		    m.top.functionName = "resume"
+		end sub
+		
+		sub resume()
+		    'print "ResumeVideo.xml - [resume]"
+		    read = regread(m.top.id, m.top.section)
+		    if read <> invalid and read.toint() >=10 then
+		        m.top.pos = read.toint()
+		    else 
+		    	m.top.pos = 0
+		    end if
+		end sub
+		]]>
+	</script>
+	<interface>
+		<field id="id" type="string"/>
+		<field id="section" type="string"/>
+		<field id="pos" type="int"/>
+	</interface>
+</component>

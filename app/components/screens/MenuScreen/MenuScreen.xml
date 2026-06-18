@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Home (Speed PlayerTech): menu vertical a esquerda + linhas de conteudo a direita.
+     A logica (dados das linhas) e alimentada pelo MenuScreenLogic via o campo homeRows. -->
+<component name="MenuScreen" extends="BaseGroup" initialFocus="menuList">
+
+  <interface>
+    <!-- Acao escolhida no menu lateral (search/live/movies/series/favorites/settings/reload) -->
+    <field id="actionId" type="string" alwaysnotify="true" />
+    <!-- Arvore de linhas da home (raiz com 3 filhos: Continuar / Filmes / Series) -->
+    <field id="homeRows" type="node" onChange="onHomeRowsSet" />
+    <!-- [linha, coluna] do card selecionado nas linhas de conteudo -->
+    <field id="rowItemSelected" type="intarray" alwaysnotify="true" />
+  </interface>
+
+  <script type="text/brightscript" uri="MenuScreen.brs" />
+  <script type="text/brightscript" uri="pkg:/source/assets.brs" />
+
+  <children>
+    <!-- Fundo geral (bg.png da marca, ou o do revendedor) -->
+    <Poster id="bgMenu" width="1920" height="1080" loadDisplayMode="scaleToFill" />
+
+    <!-- ===== SIDEBAR ===== -->
+    <Rectangle id="sidebarBg" width="380" height="1080" color="0x0b1024d9" />
+    <Poster id="headerLogo" width="300" height="96" translation="[40,44]" loadDisplayMode="scaleToFit" />
+
+    <MarkupList
+      id="menuList"
+      translation="[30,196]"
+      itemComponentName="SideMenuItem"
+      itemSize="[320,60]"
+      itemSpacing="[0,12]"
+      numRows="9"
+      drawFocusFeedback="false"
+      vertFocusAnimationStyle="floatingFocus" />
+
+    <!-- Rodape da sidebar -->
+    <Label id="macLabel" translation="[40,980]" width="320" height="28" color="0x34d399ff">
+      <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="18" />
+    </Label>
+    <Label id="expLabel" translation="[40,1012]" width="320" height="28" color="0x7fa8c9ff">
+      <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="18" />
+    </Label>
+
+    <!-- ===== CONTEUDO (linhas) ===== -->
+    <Label id="welcomeLabel" translation="[440,56]" width="1100" height="44" color="0xffffffff">
+      <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="30" />
+    </Label>
+    <Label id="clockLabel" translation="[1640,56]" width="240" height="40" horizAlign="right" color="0xcdd9eeff">
+      <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="26" />
+    </Label>
+
+    <RowList
+      id="contentRows"
+      translation="[430,150]"
+      itemComponentName="MarkupGridItem"
+      numRows="2"
+      rowItemSize="[[200,348]]"
+      rowItemSpacing="[[22,0]]"
+      itemSize="[1460,400]"
+      rowSpacing="[18]"
+      rowLabelOffset="[[6,4]]"
+      focusXOffset="[6]"
+      showRowLabel="[true]"
+      rowFocusAnimationStyle="floatingFocus"
+      vertFocusAnimationStyle="floatingFocus"
+      drawFocusFeedback="true" />
+
+    <Timer id="clockTimer" repeat="true" duration="30" />
+  </children>
+</component>

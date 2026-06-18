@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="WritePinTask" extends="Task" >
+
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+	
+	<script type="text/brightscript">
+		<![CDATA[
+		sub init()
+		    m.top.functionName = "go"
+		end sub
+		
+		sub go()
+		    read = regread("lock", m.top.section)
+		    ' PIN padrao 0000 quando nunca foi definido (ou gravado em outro namespace).
+		    if read = invalid or read = "" then read = "0000"
+		    ' o widget guarda o PIN como numero e perde zeros a esquerda (0000 -> "0").
+		    ' Recompoe 4 digitos antes de comparar/gravar.
+		    pin = m.top.pin
+		    if pin = invalid then pin = ""
+		    while Len(pin) < 4
+		        pin = "0" + pin
+		    end while
+		    if pin = read and m.top.tipo = "1" then
+		        m.top.result = "run"
+		    else if pin <> read and m.top.tipo = "1" then
+		    	m.top.result = "fault"
+			else
+				regWrite("lock", pin, m.top.section)
+				m.top.result = "change"
+		    end if
+		end sub
+		]]>
+	</script>
+	<interface>
+		<field id="pin" type="string"/>
+		<field id="tipo" type="string" value="1"/>
+		<field id="section" type="string"/>
+		<field id="result" type="string"/>
+	</interface>
+</component>
+

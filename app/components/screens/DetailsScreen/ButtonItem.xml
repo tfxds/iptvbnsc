@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="ButtonItem" extends="BaseGroup" >
+  <interface>
+    <field id = "itemContent" type = "node" onChange = "showcontent" />
+    <field id = "width" type = "float" onChange="showcontent"/>
+    <field id = "height" type = "float" onChange="showcontent"/>
+    <field id = "focusPercent" type = "float" />
+    <field id = "listHasFocus" type = "bool" onChange="showfocus" />
+    <field id = "itemHasFocus" type = "bool" onChange="showfocus" />
+  </interface>
+
+  <script type="text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.buttonLabel = m.top.findNode("buttonLabel")
+      m.buttonLabel.font = createFont(getTheme().regularFont, getTheme().buttonsTextFontSize)
+      m.buttonLabel.color = getTheme().buttonsTextColor
+      m.icon = m.top.findNode("icon")
+      m.buttonGroup = m.top.findNode("buttonGroup")
+    end sub
+
+    sub showcontent()
+      if m.top.itemContent <> invalid and m.top.width > 0 and m.top.height > 0
+        m.icon.height = m.top.height * 0.6
+        m.icon.width = m.icon.height
+        m.buttonLabel.text = m.top.itemContent.title
+        m.icon.uri = m.top.itemContent.HDLISTITEMICONURL
+        m.buttonGroup.translation = [21, m.top.height / 2]
+        showfocus()
+      end if
+    end sub
+
+    sub showfocus()
+      if m.top.itemHasFocus and m.top.listHasFocus
+        m.buttonLabel.color = getTheme().buttonsFocusedTextColor
+        m.icon.blendColor = getTheme().buttonsFocusedTextColor
+      else
+        m.buttonLabel.color = getTheme().buttonsTextColor
+        m.icon.blendColor = getTheme().buttonsTextColor
+      end if
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+    <LayoutGroup id="buttonGroup" layoutDirection="horiz" itemSpacings="[24]" horizAlignment="left" vertAlignment="center" translation="[21, 0]" >
+      <Poster id="icon" loadDisplayMode="scaleToFit" />
+      <Label id="buttonLabel" />
+    </LayoutGroup>
+  </children>
+</component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="BaseGroup" extends="Group">
+  <interface>
+    <field id="close" type="bool" alwaysnotify="true" />
+    <field id="back" type="bool" alwaysnotify="true" />
+  </interface>
+  <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+  <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+  <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+</component>

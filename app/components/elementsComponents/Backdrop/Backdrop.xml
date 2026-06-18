@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="Backdrop" extends="BaseGroup">
+    <script type="text/brightscript" uri="Backdrop.brs" />
+    <interface>
+        <field id="uri" alias="poster.uri" />
+        <field id="width" alias="poster.loadWidth"  />
+        <field id="height" alias="poster.loadHeight" />
+        <field id="shade" alias="maskBackground.opacity" />
+        <field id="maskColor" type="string" onChange="onColorChanged" />
+    </interface>
+    <children>
+		<Poster id="poster" loadDisplayMode="limitSize" />
+		<Rectangle id="maskBackground" width="1920" height="1080" opacity="0.7" />
+    </children>
+</component>

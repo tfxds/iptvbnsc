@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<!--********** Copyright 2024 XoceUnder.  All Rights Reserved. **********-->
+<component name = "MarkupListItem" extends = "BaseGroup" >
+
+  <interface>
+    <field id = "itemContent" type = "node" onChange = "showcontent" />
+    <field id = "focusPercent" type = "float" onChange = "showfocus" />
+	<field id="index" type="integer"/>
+  </interface>
+  <script type="text/brightscript" uri="MarkupListItem.brs" />
+
+  <children>
+
+    <Group id="group">
+      <!-- Pilula normal (sutil) e pilula selecionada (gradiente azul) sobrepostas -->
+      <Poster id="pillNormal" uri="pkg:/images/grid/cat_normal.png" width="400" height="64" translation="[ 50, 0 ]" />
+      <Poster id="pillSelected" uri="pkg:/images/grid/cat_selected.png" width="400" height="64" translation="[ 50, 0 ]" opacity="0" />
+      <ScrollingLabel id = "itemLabel" maxWidth="320" height="64" vertAlign="center" translation = "[ 74, 0 ]" />
+    </Group>
+
+  </children>
+
+</component>

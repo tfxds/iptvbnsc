@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="WriteVideoPosition" extends="Task">
+
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+	<script type="text/brightscript">
+		<![CDATA[
+		sub init()
+		    ''print "In WriteVideoPosition"
+		    m.top.functionName = "write"
+		end sub
+		
+		sub write()
+		    'print "WriteVideoPosition.xml - [write]"
+		    regWrite(m.top.id, m.top.pos.toStr(), m.top.section)
+		end sub
+		]]>
+	</script>
+	<interface>
+		<field id="id" type="string"/>
+		<field id="section" type="string"/>
+		<field id="pos" type="int"/>
+	</interface>
+</component>

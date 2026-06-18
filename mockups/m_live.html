@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta charset=utf-8><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+html,body{width:1920px;height:1080px}
+.s{width:1920px;height:1080px;display:flex;color:#fff;
+ background:radial-gradient(1100px 700px at 20% 10%,rgba(40,95,255,.16),transparent 60%),linear-gradient(135deg,#0a1020,#0b1426 45%,#070b16)}
+.cats{width:330px;background:rgba(10,16,30,.75);border-right:1px solid rgba(255,255,255,.08);padding:30px 22px;display:flex;flex-direction:column;gap:10px}
+.cats h3{font-size:24px;font-weight:800;color:#cfe0f0;margin-bottom:12px}
+.c{height:58px;border-radius:12px;display:flex;align-items:center;padding:0 20px;font-size:22px;font-weight:600;color:#c8dce8;background:rgba(255,255,255,.03)}
+.c.on{background:linear-gradient(135deg,#3b78ff,#1450e0);color:#fff}
+.chs{width:620px;padding:30px 24px;display:flex;flex-direction:column;gap:12px;border-right:1px solid rgba(255,255,255,.06)}
+.ch{display:flex;align-items:center;gap:18px;height:96px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:0 20px}
+.ch.on{border:3px solid #3b78ff;box-shadow:0 0 0 4px rgba(59,120,255,.25);background:rgba(59,120,255,.10)}
+.ch .lg{width:64px;height:64px;border-radius:12px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-weight:800;color:#9fc0ff;font-size:18px}
+.ch .info{display:flex;flex-direction:column;gap:4px;overflow:hidden}
+.ch .nm{font-size:24px;font-weight:700}.ch .pg{font-size:19px;color:#9fb6c6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.right{flex:1;padding:30px 36px;display:flex;flex-direction:column;gap:22px}
+.prev{width:100%;aspect-ratio:16/9;border-radius:18px;background:linear-gradient(160deg,#13233f,#0a1322);border:1px solid rgba(255,255,255,.10);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.prev .live{position:absolute;top:18px;left:18px;display:flex;align-items:center;gap:8px;background:rgba(255,60,60,.2);border:1px solid rgba(255,80,80,.5);color:#ff9a9a;font-size:17px;font-weight:700;padding:6px 14px;border-radius:20px}
+.prev .live i{width:11px;height:11px;border-radius:50%;background:#ff4d4d;display:inline-block}
+.prev .pl svg{width:90px;height:90px;color:rgba(159,192,255,.5)}
+.pinfo h2{font-size:34px;font-weight:800;margin-bottom:6px}
+.pinfo .tm{color:#9fc0ff;font-size:21px;font-weight:600;margin-bottom:14px}
+.bar{height:10px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin-bottom:16px}
+.bar i{display:block;height:100%;width:62%;background:linear-gradient(90deg,#3b78ff,#5a90ff)}
+.pinfo p{color:#b8c8d8;font-size:21px;line-height:1.5}
+</style></head><body><div class=s>
+ <div class=cats><h3>Categorias</h3>
+  <div class="c on">Canais Abertos</div><div class=c>Esportes</div><div class=c>Filmes & Séries</div>
+  <div class=c>Notícias</div><div class=c>Infantil</div><div class=c>Documentários</div><div class=c>Música</div>
+ </div>
+ <div class=chs>
+  <div class="ch on"><div class=lg>GLOBO</div><div class=info><div class=nm>Globo HD</div><div class=pg>Agora: Jornal Nacional</div></div></div>
+  <div class=ch><div class=lg>SBT</div><div class=info><div class=nm>SBT HD</div><div class=pg>Agora: Programa Silvio Santos</div></div></div>
+  <div class=ch><div class=lg>REC</div><div class=info><div class=nm>Record HD</div><div class=pg>Agora: Cidade Alerta</div></div></div>
+  <div class=ch><div class=lg>BAND</div><div class=info><div class=nm>Band HD</div><div class=pg>Agora: Brasil Urgente</div></div></div>
+  <div class=ch><div class=lg>ESPN</div><div class=info><div class=nm>ESPN HD</div><div class=pg>Agora: SportsCenter</div></div></div>
+ </div>
+ <div class=right>
+  <div class=prev><div class=live><i></i>AO VIVO</div><div class=pl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="6 4 20 12 6 20"/></svg></div></div>
+  <div class=pinfo>
+   <h2>Jornal Nacional</h2>
+   <div class=tm>20:30 — 21:15</div>
+   <div class=bar><i></i></div>
+   <p>As principais notícias do Brasil e do mundo com William Bonner e Renata Vasconcellos.</p>
+  </div>
+ </div>
+</div></body></html>

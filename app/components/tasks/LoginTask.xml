@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="LoginTask" extends="Task">
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/PanelClient.brs" />
+    <script type="text/brightscript">
+        <![CDATA[
+        sub init()
+            m.top.functionName = "ValidateLogin"
+        end sub
+
+function panelMsg(resp as Object, fallback as String) as String
+    if resp <> invalid and resp.message <> invalid and resp.message <> "" then return resp.message
+    return fallback
+end function
+
+sub ValidateLogin()
+    m.top.errorMsg = ""
+    user = m.top.user
+    pass = m.top.pass
+    code = m.top.code
+
+    if isEmpty(code) or isEmpty(user) or isEmpty(pass) then
+        m.top.errorMsg = "Informe codigo, usuario e senha"
+        m.top.validated = false
+        return
+    end if
+
+    deviceId = CreateObject("roDeviceInfo").GetChannelClientId()
+
+    ' 1) codigo do revendedor -> DNS liberadas (fluxo A)
+    dnsResp = panelResellerDns(deviceId, code)
+    if dnsResp = invalid or dnsResp.success <> true then
+        m.top.errorMsg = panelMsg(dnsResp, "Revendedor nao encontrado")
+        m.top.validated = false
+        return
+    end if
+    if dnsResp.dns = invalid or dnsResp.dns.Count() = 0 then
+        m.top.errorMsg = "Nenhuma DNS liberada para este revendedor"
+        m.top.validated = false
+        return
+    end if
+
+    ' 2) valida user/senha via Xtream contra as DNS do revendedor
+    matchedCfg = invalid
+    matchedJson = invalid
+    matchedDnsId = ""
+    for each d in dnsResp.dns
+        dnsUrl = d.url
+        if dnsUrl <> invalid and dnsUrl <> "" then
+            url = dnsUrl + "/player_api.php?username=" + user.Escape() + "&password=" + pass.Escape()
+            http = NewHttp(url)
+            rsp = http.GetToStringWithRetry()
+            json = ParseJson(rsp)
+            if json <> invalid and json.user_info <> invalid and json.user_info.auth = 1
+                matchedCfg = { serverURL: dnsUrl, appName: "S.A Player", api_key: "46270abd00c39663cde5d450ff83cbb8", version: "4.5" }
+                matchedJson = json
+                matchedDnsId = d.id
+                exit for
+            end if
+        end if
+    end for
+
+    if matchedCfg = invalid then
+        m.top.errorMsg = "Usuario ou senha invalidos"
+        m.top.validated = false
+        return
+    end if
+
+    ' 3) registra/vincula o MAC no painel do revendedor (fluxo B) - so com login valido
+    loginResp = panelLogin(deviceId, code, matchedDnsId, user, pass, matchedCfg.serverURL)
+    if loginResp = invalid or loginResp.success <> true then
+        m.top.errorMsg = panelMsg(loginResp, "Falha ao vincular no painel")
+        m.top.validated = false
+        return
+    end if
+
+    ' 4) monta config_activa (DNS do revendedor) e segue o caminho de sucesso original
+    servers = []
+    for each d in dnsResp.dns
+        if d.url <> invalid and d.url <> "" then
+            servers.Push({ serverURL: d.url, appName: "S.A Player", api_key: "46270abd00c39663cde5d450ff83cbb8", version: "4.5" })
+        end if
+    end for
+    m.global.setField("config_activa", servers)
+
+    m.global.AddField("config", "assocarray", true)
+    m.global.setField("config", matchedCfg)
+
+    appName = matchedCfg.appName
+
+    regWrite("lock", "0000", appName)
+    regWrite("channelCategory", FormatJSON([]), appName)
+    regWrite("moviesCategory", FormatJSON([]), appName)
+    regWrite("seriesCategory", FormatJSON([]), appName)
+    regWrite("live", FormatJSON([]), appName)
+    regWrite("movie", FormatJSON([]), appName)
+    regWrite("series", FormatJSON([]), appName)
+    regWrite("sort", "auto", appName)
+    regWrite("streamFormat", "hls", appName)
+    regWrite("userTV", matchedJson.user_info.username, appName)
+    regWrite("passTV", matchedJson.user_info.password, appName)
+    regDelete("forceLogin", appName)   ' login manual -> auto-login volta ao normal
+
+    m.global.user = matchedJson.user_info.username
+    m.global.pass = matchedJson.user_info.password
+    m.global.expire = matchedJson.user_info.exp_date
+    ' Dados de conexao pra tela "Usuario" (este fluxo de login nao preenchia -> ficava vazio)
+    if matchedJson.user_info.max_connections <> invalid then m.global.max_connections = AnyToString(matchedJson.user_info.max_connections)
+    if matchedJson.user_info.active_cons <> invalid then m.global.active_cons = AnyToString(matchedJson.user_info.active_cons)
+    m.global.sort = "auto"
+    m.global.streamFormat = "hls"
+    m.global.timeServer = matchedJson.server_info.timestamp_now
+
+    m.top.status = matchedJson.user_info.status
+    m.top.validated = true
+end sub
+
+        ]]>
+    </script>
+    <interface>
+        <field id="code" type="string"/>
+        <field id="user" type="string"/>
+        <field id="pass" type="string"/>
+        <field id="status" type="string"/>
+        <field id="errorMsg" type="string"/>
+        <field id="validated" type="boolean" value="false"/>
+    </interface>
+</component>

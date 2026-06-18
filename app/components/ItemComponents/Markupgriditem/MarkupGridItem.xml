@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="MarkupGridItem" extends="BaseGroup">
+	<interface>
+		<field id="itemContent" type="node" onChange="OnItemContentChange" />
+        <field id="focusPercent" type="float" onChange="focusChanging" />
+		 <field id="itemHasFocus" type="bool" onChange="on_focus_change" />
+	</interface>
+	<script type="text/brightscript" uri="MarkupGridItem.brs" />
+
+	<children>
+		<!-- Card: poster arredondado em cima, titulo numa linha embaixo -->
+		<Group id="card">
+			<maskGroup id="posterMask" maskUri="pkg:/images/grid/postermask_rounded.png" masksize="[ 200, 300 ]" scaleRotateCenter="[100, 150]" maskOffset="[0,0]" >
+				<Poster id="itemPoster" width="200" height="300" loadWidth="200" loadHeight="300" loadingBitmapUri="pkg:/images/poster_loading.png" failedBitmapUri="pkg:/images/poster_failed.png" loadDisplayMode="scaleToFill" />
+			</maskGroup>
+			<!-- Anel de foco azul, dentro das bordas do card (nao estoura pro vizinho) -->
+			<Poster id="focusRing" uri="pkg:/images/grid/focusring.png" width="212" height="312" translation="[-6,-6]" visible="false" />
+			<!-- Titulo embaixo do poster, com reticencias se for longo -->
+			<Label id="posterText" width="200" height="40" translation="[0,310]" horizAlign="center" vertAlign="top" wrap="false" color="0xc8dce8ff">
+				<Font role="font" uri="pkg:/fonts/Montserrat-Medium.ttf" size="22" />
+			</Label>
+		</Group>
+	</children>
+</component>

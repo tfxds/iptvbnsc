@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********** Copyright 2021 XoceUnder.  All Rights Reserved. **********-->
+
+<component name="MainScene" extends="Scene">
+    <script type="text/brightscript" uri="MainScene.brs" />
+    <script type="text/brightscript" uri="pkg:/source/assets.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/PanelClient.brs" />
+	<!-- Roku Developers Task-->
+    <script type="text/brightscript" uri="UILogic/CategoryTaskLogic.brs" />
+	<script type="text/brightscript" uri="UILogic/MyListTaskLogic.brs" />
+	<!-- Roku Developers Screen-->
+    <script type="text/brightscript" uri="UILogic/VideoPlayerLogic.brs" />
+    <script type="text/brightscript" uri="UILogic/VideoLiveLogic.brs" />
+    <script type="text/brightscript" uri="UILogic/ScreenStackLogic.brs" />
+    <script type="text/brightscript" uri="UILogic/DetailsScreenLogic.brs" />
+	<script type="text/brightscript" uri="UILogic/GridScreenLogic.brs" />
+	<script type="text/brightscript" uri="UILogic/MyListScreenLogic.brs" />
+    <script type="text/brightscript" uri="UILogic/EpisodesScreenLogic.brs" />
+    <script type="text/brightscript" uri="UILogic/MenuScreenLogic.brs" />
+    <script type="text/brightscript" uri="UILogic/TimeGridScreenLogic.brs" />
+    <script type="text/brightscript" uri="UILogic/SettingScreenLogic.brs" />
+    <script type="text/brightscript" uri="UILogic/LoginScreenLogic.brs" />
+    <script type="text/brightscript" uri="UILogic/WarningScreenLogic.brs" />
+	<script type="text/brightscript" uri="UILogic/SearchScreenLogic.brs" />
+	<interface>
+		<!-- Main menu close handler -->
+		<field id="close" type="bool"/>
+		<field id="checkAuth" type="bool" onChange="go"/>
+	</interface>
+    <children>
+        <!-- Overhang with Roku Developers logo -->
+        <Overhang
+            id="overhang"
+            showOptions="false"
+            showClock="false"
+            logoUri="pkg:/images/logo.png"
+            translation="[0,60]"
+			visible="TRUE"/>
+    	<Timer
+    	    id="clock"
+    	    repeat= "false"
+    	    duration = "6"/>
+       <Timer
+		   id = "timeServer"
+		   repeat = "true"
+		   duration = "1"/>
+        <!-- LoadingIndicator should be visible only in case of waiting for content -->
+	    <LoadingIndicator
+            id="loadingIndicator"
+            imageUri="pkg:/images/loader.png"
+            clockwise="TRUE"
+            spinInterval="2"
+            fadeInterval="0.5"
+            spacing="20"
+            imageWidth="100"
+            text="Carregando..."
+            width="1920"
+            height="1080"
+            centered="false"
+            translation="[0,0]"
+            textPadding="10"
+            font="font:SmallBoldSystemFont"
+            backgroundColor="0x551A8B"
+            backgroundOpacity="0"
+			visible="false"/>	
+    </children>
+</component>

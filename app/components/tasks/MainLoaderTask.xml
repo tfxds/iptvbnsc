@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********** Copyright 2021 XoceUnder.  All Rights Reserved. **********-->
+
+<component name="MainLoaderTask" extends="Task">
+    <interface>
+        <field id="category_id" type="string" />
+        <field id="category_title" type="string" />
+        <field id="action" type="string" />
+        <field id="ctype" type="string" />
+        <field id="cacheKey" type="string" />
+        <field id="content" type="node" />
+    </interface>
+
+    <script type="text/brightscript" uri="MainLoaderTask.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/nodeUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/generalUtils.brs" />
+    <script type="text/brightscript" uri="pkg:/source/utils/urlUtils.brs" />
+
+</component>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="TimeGridChannelItem" extends="BaseGroup">
+    <interface>
+      <field id="content" type="node"/>
+      <field id="itemContent" type="node" onChange="OnContentSet"/>
+      <field id="focusPercent" type="float" onChange="OnFocusPercentChanged"/>
+      <field id="index" type="integer" onChange="OnContentSet"/>
+      <field id="width" type="float" />
+      <field id="height" type="float" />
+    </interface>
+
+    <script type="text/brightscript" uri="TimeGridChannelItem.brs" />
+
+    <!-- Layout FIXO para itemSize [600,68] (NAO depende de width/height da lista,
+         que nao sao setados de forma confiavel pela MarkupList). UM card so (rowBg),
+         conteudo centralizado verticalmente dentro do card. -->
+    <children>
+      <Poster id="rowBg" width="590" height="62" translation="[5,3]" loadDisplayMode="scaleToFill" uri="pkg:/images/live/chan_normal.png"/>
+      <Poster id="rowBgFocus" width="590" height="62" translation="[5,3]" loadDisplayMode="scaleToFill" uri="pkg:/images/live/chan_focus.png" opacity="0"/>
+      <Label id="numero" width="40" height="62" translation="[14,3]" horizAlign="right" vertAlign="center" color="#3b78ff">
+          <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="24"/>
+      </Label>
+      <Poster id="poster" width="46" height="46" translation="[66,11]" loadDisplayMode="scaleToFit" loadWidth="46" loadHeight="46" failedBitmapUri="pkg:/images/channel.png"/>
+      <ScrollingLabel id="title" maxWidth="420" translation="[124,18]" horizAlign="left" color="#E8EDF7">
+          <Font role="font" uri="pkg:/fonts/Montserrat-SemiBold.ttf" size="26"/>
+      </ScrollingLabel>
+    </children>
+</component>

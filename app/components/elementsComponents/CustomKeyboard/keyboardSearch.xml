@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="keyboardSearch" extends="DynamicCustomKeyboard" >
+  <interface>
+    <function name="keySelected" />
+    <field id="next" type="bool" alwaysNotify="true" />
+    <field id="prev" type="bool" alwaysNotify="true" />
+    <field id="mode" type="string" onChange="modeChanged" />
+  </interface>
+  <script type="text/brightscript" uri="keyboardSearch.brs"/>
+  <children>
+
+  </children>
+
+</component>

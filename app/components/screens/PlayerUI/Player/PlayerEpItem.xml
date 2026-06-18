@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Item da bandeja de episodios do player (Fase 3). Capa + titulo + anel de foco. -->
+<component name="PlayerEpItem" extends="Group">
+  <interface>
+    <field id="itemContent" type="node" onChange="onContent"/>
+    <field id="focusPercent" type="float" onChange="onFocus"/>
+    <field id="width" type="float"/>
+    <field id="height" type="float"/>
+  </interface>
+  <script type="text/brightscript"><![CDATA[
+    sub init()
+      m.ring = m.top.findNode("ring")
+      m.poster = m.top.findNode("poster")
+      m.lbl = m.top.findNode("lbl")
+    end sub
+    sub onContent()
+      c = m.top.itemContent
+      if c = invalid then return
+      if c.hdPosterURL <> invalid and c.hdPosterURL <> "" then m.poster.uri = c.hdPosterURL
+      m.lbl.text = c.title
+    end sub
+    sub onFocus()
+      if m.top.focusPercent > 0.5 then
+        m.ring.visible = true
+      else
+        m.ring.visible = false
+      end if
+    end sub
+  ]]></script>
+  <children>
+    <Rectangle id="ring" width="260" height="172" color="0x4F9CFFFF" visible="false"/>
+    <Poster id="poster" width="252" height="142" translation="[4,4]" loadDisplayMode="scaleToZoom"/>
+    <Label id="lbl" width="252" height="22" translation="[4,148]" color="0xffffff" maxLines="1">
+      <Font role="font" uri="pkg:/fonts/Montserrat-Medium.ttf" size="18"/>
+    </Label>
+  </children>
+</component>

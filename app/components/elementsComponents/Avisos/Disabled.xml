@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 XoceUnder.  All Rights Reserved. -->
+<component name="Disabled" extends="BaseGroup" >
+  	<script type="text/brightscript">
+		<![CDATA[
+		sub init()
+		    'getScene().backgroundUri = "pkg:/images/bg-main.jpg"
+		    mBind(["Title", "Description"])
+		    m.Title.text = tr("Your Account has been Disabled")
+		    m.Description.text = tr("Your account has been disabled for some reason to see what your reason was contact the provider and you will get help for your account.")
+		end sub
+		]]>
+	</script>
+  <children>
+
+    <Rectangle
+      opacity="0.7"
+      color="#000000"
+	  translation="[350,340]"
+      width="1200"
+      height="380"/>
+
+    <Label
+	  id="Title"
+      font="font:LargeBoldSystemFont"
+      height="100"
+	  horizAlign = "center"
+	  translation="[600,350]" />
+
+    <Label
+	  id="Description"
+      font="font:MediumBoldSystemFont"
+      width="900"
+	  height="220"
+      wrap="true"
+	  translation="[400,440]" />
+	  
+    <Poster
+	  uri="pkg:/images/aviso.png"
+      translation="[1280, 560]"
+      width="200"
+      height="150" 
+      loadDisplayMode="scaleToFit"/>
+
+  </children>
+
+</component>

@@ -1,0 +1,11 @@
+<component name="listFields" extends="ContentNode">
+   <interface>
+       <field id="title" type="String" />
+       <field id="list_selection" type="String" />
+       <field id="list_selection_focus" type="String" />
+       <field id="icon" type="String"/>
+	   <field id="description" type="String"/>
+       <field id="isFocused" type="boolean"/>
+   </interface>
+    
+</component>

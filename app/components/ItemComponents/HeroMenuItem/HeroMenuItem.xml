@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="HeroMenuItem" extends="BaseGroup">
+  <interface>
+    <field id="itemContent" type="node" onChange="onItemContentChange" />
+    <field id="width" type="float" onChange="onItemContentChange" />
+    <field id="height" type="float" onChange="onItemContentChange" />
+    <field id="focusPercent" type="float" onChange="onFocusChange" />
+  </interface>
+  <script type="text/brightscript" uri="HeroMenuItem.brs" />
+    <script type="text/brightscript" uri="pkg:/source/assets.brs" />
+  <children>
+    <Poster id="bg" width="560" height="340" loadDisplayMode="scaleToFill" />
+    <Poster id="focusRing" width="560" height="340" visible="false" />
+    <Poster id="icon" width="80" height="80" translation="[40, 40]" />
+    <Rectangle id="badge" width="156" height="44" color="0x4a1414e6" translation="[360, 40]" visible="false">
+      <LayoutGroup id="badgeRow" layoutDirection="horiz" itemSpacings="[10]" vertAlignment="center" translation="[18, 22]">
+        <Rectangle id="badgeDot" width="14" height="14" color="0xff4d4dff" />
+        <Label text="AO VIVO" color="0xff9a9a">
+          <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="22" />
+        </Label>
+      </LayoutGroup>
+    </Rectangle>
+    <Label id="title" horizAlign="left" width="480" translation="[40, 228]">
+      <Font role="font" uri="pkg:/fonts/Montserrat-Black.ttf" size="46" />
+    </Label>
+    <Label id="subtitle" horizAlign="left" width="480" color="0xb8d0e6" translation="[40, 292]">
+      <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="22" />
+    </Label>
+  </children>
+</component>
