@@ -26,7 +26,9 @@ sub GetContent()
     ' rede). So baixa se nao tem cache fresco. Apos baixar, grava no disco p/ proxima vez.
     rsp = ""
     fromDisk = false
-    if m.top.cacheKey <> invalid and m.top.cacheKey <> ""
+    ' forceFresh = revalidacao: pula o cache de disco e baixa fresco da rede (conteudo novo
+    ' do painel aparece). Sem forceFresh, usa o cache de disco (cold-start instantaneo).
+    if m.top.cacheKey <> invalid and m.top.cacheKey <> "" and m.top.forceFresh <> true
         rsp = readDiskCache(m.top.cacheKey, 24)
         if rsp <> "" then fromDisk = true
     end if
@@ -84,6 +86,8 @@ sub GetContent()
     ' set up a root ContentNode to represent rowList on the GridScreen
     contentNode = CreateObject("roSGNode", "ContentNode")
     contentNode.Update({children: rootChildren}, true)
+	' Sinaliza se veio do cache de disco -> o preload da home revalida em background.
+	m.top.servedFromDisk = fromDisk
 	m.top.content = contentNode
 end sub
 
@@ -95,6 +99,15 @@ function GetItemData(video as Object) as Object
 	' Guarda a categoria do item pra permitir FILTRO no app (troca de pasta instantanea
 	' a partir do cache "Todos", sem nova chamada de rede).
 	item.categoryId = AnyToString(video.category_id)
+	' Data de adicao p/ ordenar "recentes" por DATA (nao por id). Filme=added, serie=last_modified.
+	' Critico: series novas NAO tem os maiores series_id (re-adicoes com id baixo) -> ordenar
+	' por id deixava as novas de fora do top-20. Por data sempre mostra as mais recentes.
+	' ATENCAO: pegar o valor VALIDO antes de converter — AnyToString(invalid) NAO retorna ""
+	' (retorna o nome do tipo), entao testar invalid direto, nao a string.
+	tsval = video.added
+	if tsval = invalid then tsval = video.last_modified
+	item.addedTs = ""
+	if tsval <> invalid then item.addedTs = AnyToString(tsval)
     item.rating = AnyToString(video.rating)
     item.description = ""
 	item.categories = ""
@@ -108,14 +121,19 @@ function GetItemData(video as Object) as Object
 	if m.ctype = "movie" then
 		item.id = video.stream_id
 		item.hdPosterURL = video.stream_icon
+        ' Caminho do filme montado LOCAL pelo ctype (nao pelo m.global.play). O m.global.play
+        ' e um global UNICO compartilhado: no preload da home (filmes+series+live em paralelo)
+        ' ele nao esta setado pra "/movie/..." -> a URL saia quebrada (ex.: "csnbnsc.top269366.mp4").
+        ' Montando aqui pelas credenciais garante a URL certa em qualquer fluxo.
+        moviePath = "/movie/" + m.global.user + "/" + m.global.pass + "/"
         ' Verificar si container_extension existe antes de usarlo
         if video.container_extension <> invalid then
-            item.url = m.global.config.serverURL + m.global.play + tostr(video.stream_id) + "." + video.container_extension
+            item.url = m.global.config.serverURL + moviePath + tostr(video.stream_id) + "." + video.container_extension
         else
             ' Usar formato por defecto basado en streamFormat
             extension = ".m3u8"
             if m.global.streamFormat <> invalid and m.global.streamFormat <> "hls" then extension = ".ts"
-            item.url = m.global.config.serverURL + m.global.play + tostr(video.stream_id) + extension
+            item.url = m.global.config.serverURL + moviePath + tostr(video.stream_id) + extension
         end if
         'item.streamFormat = video.container_extension
 		item.fhdposterurl = ""

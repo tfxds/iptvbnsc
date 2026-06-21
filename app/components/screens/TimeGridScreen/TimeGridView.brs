@@ -158,9 +158,14 @@ sub controlvideoplay()
         ' -5. Solucao = proxy de remux no servidor (ffmpeg -c copy TS->fMP4 com tag hvc1), que
         ' o Roku abre. No -5 a gente reaponta o canal pro proxy. H.264 toca direto no .ts e
         ' nem chega aqui. So pro painel bnscdn (outros provedores nao sao afetados).
-        if m.Video.errorCode = -5 and m.triedHls <> true and m.currentPlayingId <> invalid and m.global.config <> invalid and m.global.config.serverURL <> invalid and Instr(1, m.global.config.serverURL, "bnscdn.top") > 0
+        ' bnscdn.top E csnbnsc.top sao o MESMO servidor/IP (confirmado Andrade 2026-06-18) ->
+        ' o speedtech (csnbnsc.top) usa o MESMO proxy de remux do saplayer pros canais HEVC/4K (-5).
+        if m.Video.errorCode = -5 and m.triedHls <> true and m.currentPlayingId <> invalid and m.global.config <> invalid and m.global.config.serverURL <> invalid and (Instr(1, m.global.config.serverURL, "bnscdn.top") > 0 or Instr(1, m.global.config.serverURL, "csnbnsc.top") > 0)
             m.triedHls = true
-            proxyUrl = "http://2.25.197.72:8090/r/" + tostr(m.currentPlayingId) + "/index.m3u8"
+            ' Proxy de transcode HEVC->H.264 no 225 (BR, alcanca o painel direto), exposto via
+            ' Caddy/HTTPS. Substitui o antigo UK 2.25.197.72:8090 (dependia do relay BR 187.77.241.121
+            ' que o cliente reinstalou e derrubou). 2026-06-18.
+            proxyUrl = "https://wacall.nexsectecnologia.com.br/r/" + tostr(m.currentPlayingId) + "/index.m3u8"
             newC = m.Video.content.Clone(true)
             newC.url = proxyUrl
             newC.streamFormat = "hls"

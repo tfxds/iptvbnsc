@@ -49,7 +49,9 @@ sub autoLoadFirstCategory(cats as Object)
             m.GridScreen.content = invalid
             m.GridScreen.searchContent = invalid
             m.GridScreen.SetFocus(true)
-            m.GridScreen.content = m[ckey]
+            ' Ordena por DATA (recentes primeiro). ESTE eh o caminho da ABERTURA da aba
+            ' (cache do "Todos" do preload) -> sem isso a grade saia na ordem crua da API.
+            m.GridScreen.content = sortByAddedTs(m[ckey])
             m.loadingIndicator.visible = false
             return
         end if

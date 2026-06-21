@@ -1593,8 +1593,21 @@ Function getDeviceESN()
 End Function
 
 
+' ID ESTAVEL do device, travado no registro. O GetChannelClientId da Roku DEVERIA ser fixo
+' ("persistent and cannot be reset" na doc), mas em alguns aparelhos ele glitcha e troca
+' entre aberturas -> o MAC derivado muda -> o painel nao reconhece o device -> desloga.
+' Guardando o ID na 1a execucao e reusando sempre, ele fica FIXO por TV (so muda se
+' desinstalar o app). MAC real da TV nao da (Roku retorna 000... no GetConnectionInfo).
+Function getStableDeviceId() as String
+  id = regRead("stable_device_id", "saplayer", "")
+  if id <> invalid and id <> "" then return id
+  id = CreateObject("roDeviceInfo").GetChannelClientId()
+  if id <> invalid and id <> "" then regWrite("stable_device_id", id, "saplayer")
+  return id
+End Function
+
 Function getClientTrackingId()
-  return CreateObject("roDeviceInfo").GetChannelClientId()
+  return getStableDeviceId()
 End Function
 
 

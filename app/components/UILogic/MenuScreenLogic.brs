@@ -55,12 +55,51 @@ sub onPreloadMovieDone()
     if m.preloadMovie <> invalid and m.preloadMovie.content <> invalid
         m.cacheGrid_movie = m.preloadMovie.content
         if m.MenuScreen <> invalid then m.MenuScreen.homeRows = buildHomeRows()
+        ' STALE-WHILE-REVALIDATE: se mostrou o cache de disco, baixa fresco em background
+        ' (conteudo novo do painel aparece SEM o cliente apertar "Atualizar"). Revalida 1x.
+        if m.preloadMovie.servedFromDisk = true and m.movieRevalidated <> true
+            m.movieRevalidated = true
+            m.refreshMovie = CreateObject("roSGNode", "MainLoaderTask")
+            m.refreshMovie.action = "get_vod_streams"
+            m.refreshMovie.ctype = "movie"
+            m.refreshMovie.category_id = ""
+            m.refreshMovie.cacheKey = "saplayer_movie"
+            m.refreshMovie.forceFresh = true
+            m.refreshMovie.ObserveField("content", "onRefreshMovieDone")
+            m.refreshMovie.control = "run"
+        end if
+    end if
+end sub
+
+' Dados frescos da rede chegaram -> atualiza o cache de sessao e re-monta a home.
+sub onRefreshMovieDone()
+    if m.refreshMovie <> invalid and m.refreshMovie.content <> invalid
+        m.cacheGrid_movie = m.refreshMovie.content
+        if m.MenuScreen <> invalid then m.MenuScreen.homeRows = buildHomeRows()
     end if
 end sub
 
 sub onPreloadSeriesDone()
     if m.preloadSeries <> invalid and m.preloadSeries.content <> invalid
         m.cacheGrid_series = m.preloadSeries.content
+        if m.MenuScreen <> invalid then m.MenuScreen.homeRows = buildHomeRows()
+        if m.preloadSeries.servedFromDisk = true and m.seriesRevalidated <> true
+            m.seriesRevalidated = true
+            m.refreshSeries = CreateObject("roSGNode", "MainLoaderTask")
+            m.refreshSeries.action = "get_series"
+            m.refreshSeries.ctype = "series"
+            m.refreshSeries.category_id = ""
+            m.refreshSeries.cacheKey = "saplayer_series"
+            m.refreshSeries.forceFresh = true
+            m.refreshSeries.ObserveField("content", "onRefreshSeriesDone")
+            m.refreshSeries.control = "run"
+        end if
+    end if
+end sub
+
+sub onRefreshSeriesDone()
+    if m.refreshSeries <> invalid and m.refreshSeries.content <> invalid
+        m.cacheGrid_series = m.refreshSeries.content
         if m.MenuScreen <> invalid then m.MenuScreen.homeRows = buildHomeRows()
     end if
 end sub
@@ -106,7 +145,9 @@ sub appendContinueRow(root as Object, cw as Object, title as String, kind as Str
     end for
 end sub
 
-' Copia ate maxN itens do cache numa linha, ORDENADOS por id desc (mais recentes primeiro).
+' Copia ate maxN itens do cache numa linha, ORDENADOS por DATA de adicao desc (mais novos
+' primeiro). Usa addedTs (added/last_modified do painel); cai no id se a data faltar. Por id
+' as series novas (re-adicoes com id baixo) ficavam de fora -> por data sempre aparecem.
 sub appendCatalogRow(root as Object, cache as Object, title as String, rowType as String, maxN as Integer)
     if cache = invalid then return
     n = cache.getChildCount()
@@ -116,12 +157,14 @@ sub appendCatalogRow(root as Object, cache as Object, title as String, rowType a
     for i = 0 to n - 1
         it = cache.getChild(i)
         if it <> invalid
-            idv = 0
-            if it.id <> invalid and it.id <> "" then idv = ("" + it.id).ToInt()
-            order.Push({ idx: i, idv: idv })
+            sortv = 0
+            if it.addedTs <> invalid and it.addedTs <> "" then sortv = ("" + it.addedTs).ToInt()
+            ' fallback: item sem data -> usa o id (nao some da fileira)
+            if sortv = 0 and it.id <> invalid and it.id <> "" then sortv = ("" + it.id).ToInt()
+            order.Push({ idx: i, sortv: sortv })
         end if
     end for
-    order.SortBy("idv")   ' ascendente -> percorro do fim pro inicio (desc = mais novos)
+    order.SortBy("sortv")   ' ascendente -> percorro do fim pro inicio (desc = mais novos)
 
     row = root.CreateChild("ContentNode")
     row.title = title

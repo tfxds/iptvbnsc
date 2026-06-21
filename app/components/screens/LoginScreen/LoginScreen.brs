@@ -153,7 +153,7 @@ sub init()
     m.codeBox.visible = true
     mac = m.global.deviceMac
     if mac = invalid or mac = "" then
-        mac = panelDeviceMac(CreateObject("roDeviceInfo").GetChannelClientId())
+        mac = panelDeviceMac(getStableDeviceId())
     end if
     m.activationCodeLabel.text = mac
     m.codeStatusLabel.text = ""

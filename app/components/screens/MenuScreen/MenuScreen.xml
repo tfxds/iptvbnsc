@@ -57,7 +57,6 @@
       rowItemSize="[[200,348]]"
       rowItemSpacing="[[22,0]]"
       itemSize="[1460,400]"
-      rowSpacing="[18]"
       rowLabelOffset="[[6,4]]"
       focusXOffset="[6]"
       showRowLabel="[true]"

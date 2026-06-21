@@ -1,6 +1,6 @@
 '****CONTENT MASTERS****
 sub Main(args as dynamic)
-    ? "===== SAPLAYER BUILD v94 :: pacote <4MB (fontes subset + imagens comprimidas + remove assets nao usados) p/ cert Roku ====="
+    ? "===== Speed PlayerTech build "; ReadManifest().build_version; " ====="
     screen = CreateObject("roSGScreen")
     m.port = CreateObject("roMessagePort")
     screen.SetMessagePort(m.port)
@@ -75,6 +75,11 @@ function initGlobals()
     m.global.setField("rokuUniqueID", getDeviceESN())
     m.global.AddField("deviceMac", "string", true)
     m.global.setField("deviceMac", panelDeviceMac(getDeviceESN()))
+    ' DIAGNOSTICO (telnet): compara o ID cru da Roku com o ID travado no registro. Em
+    ' aberturas seguidas, o "channelClientId" pode oscilar (bug do aparelho) mas o
+    ' "stableId" tem que ficar IGUAL = MAC fixo. Tirar apos validar.
+    ? "[MACDIAG] channelClientId="; CreateObject("roDeviceInfo").GetChannelClientId()
+    ? "[MACDIAG] stableId(registro)="; getStableDeviceId(); " | deviceMac="; m.global.deviceMac
     m.global.AddField("user", "string", true)
     m.global.AddField("pass", "string", true)
     m.global.AddField("expire", "string", true)

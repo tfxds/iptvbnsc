@@ -48,10 +48,28 @@ function showCachedCategory(catId as dynamic) as boolean
     ' IMPORTANTE: clonar cada filho. Passar os nos do cache direto pra outro ContentNode
     ' REPARENTA eles (tira do cache) -> a 1a troca funciona e as seguintes ficam
     ' lentas/vazias. Com clone(true) o cache fica intacto e a troca segue instantanea.
-    node = CreateObject("roSGNode", "ContentNode")
+    ' Filtra pela categoria E ordena por DATA de adicao/atualizacao (recentes primeiro),
+    ' igual a home. Sem isso a grade saia na ordem crua da API (id) -> series novas
+    ' (re-adicoes com id baixo) ficavam fora de ordem. Fallback no id se a data faltar.
+    items = []
     for each child in cache.GetChildren(-1, 0)
-        if child.categoryId = catId then node.appendChild(child.clone(true))
+        if child.categoryId = catId then items.Push(child)
     end for
+    order = []
+    for i = 0 to items.Count() - 1
+        it = items[i]
+        sortv = 0
+        if it.addedTs <> invalid and it.addedTs <> "" then sortv = ("" + it.addedTs).ToInt()
+        if sortv = 0 and it.id <> invalid and it.id <> "" then sortv = ("" + it.id).ToInt()
+        order.Push({ idx: i, sortv: sortv })
+    end for
+    order.SortBy("sortv")   ' ascendente -> do fim pro inicio = mais novos primeiro
+    node = CreateObject("roSGNode", "ContentNode")
+    j = order.Count() - 1
+    while j >= 0
+        node.appendChild(items[order[j].idx].clone(true))
+        j = j - 1
+    end while
 
     fl = getScene().FindNode("filteredList")
     if fl <> invalid then fl.visible = false
@@ -96,6 +114,32 @@ sub showAdults()
     end if
 end sub
 
+' Ordena os filhos de um ContentNode por DATA de adicao/atualizacao (addedTs) desc,
+' fallback no id. Retorna um novo ContentNode ordenado (recentes primeiro).
+function sortByAddedTs(src as Object) as Object
+    if src = invalid then return src
+    n = src.getChildCount()
+    if n <= 0 then return src
+    order = []
+    for i = 0 to n - 1
+        it = src.getChild(i)
+        if it <> invalid
+            sortv = 0
+            if it.addedTs <> invalid and it.addedTs <> "" then sortv = ("" + it.addedTs).ToInt()
+            if sortv = 0 and it.id <> invalid and it.id <> "" then sortv = ("" + it.id).ToInt()
+            order.Push({ idx: i, sortv: sortv })
+        end if
+    end for
+    order.SortBy("sortv")
+    out = CreateObject("roSGNode", "ContentNode")
+    j = order.Count() - 1
+    while j >= 0
+        out.appendChild(src.getChild(order[j].idx).clone(true))
+        j = j - 1
+    end while
+    return out
+end function
+
 sub OnMovieContentLoaded()
     m.loadingIndicator.visible = false
     ' Guarda anti-crash: se a tela atual NAO for a GridScreen (ex.: o usuario foi pra
@@ -111,8 +155,10 @@ sub OnMovieContentLoaded()
     m.GridScreen.content = invalid
     m.GridScreen.searchContent = invalid
     m.GridScreen.SetFocus(true)
-    m.GridScreen.content = m.movieTask.content
-    ' CACHE de sessao: guarda o "Todos" (category_id vazio) pra re-entrada instantanea.
+    ' Ordena por data (recentes primeiro) — o "Todos" (catId vazio) sempre vem por aqui
+    ' (showCachedCategory ignora catId vazio), entao SEM isso a grade saia em ordem crua.
+    m.GridScreen.content = sortByAddedTs(m.movieTask.content)
+    ' CACHE de sessao: guarda o "Todos" CRU (category_id vazio) pra re-entrada/filtro/home.
     if m.movieTask.category_id = "" and m.global.contentType <> invalid
         m["cacheGrid_" + m.global.contentType] = m.movieTask.content
     end if

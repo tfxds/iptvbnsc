@@ -8,6 +8,10 @@
         <field id="action" type="string" />
         <field id="ctype" type="string" />
         <field id="cacheKey" type="string" />
+        <!-- forceFresh: ignora o cache de disco e baixa SEMPRE da rede (revalidacao). -->
+        <field id="forceFresh" type="bool" value="false" />
+        <!-- servedFromDisk: true se a resposta veio do cache de disco (-> vale revalidar). -->
+        <field id="servedFromDisk" type="bool" value="false" />
         <field id="content" type="node" />
     </interface>
 

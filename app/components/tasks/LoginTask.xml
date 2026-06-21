@@ -27,7 +27,7 @@ sub ValidateLogin()
         return
     end if
 
-    deviceId = CreateObject("roDeviceInfo").GetChannelClientId()
+    deviceId = getStableDeviceId()
 
     ' 1) codigo do revendedor -> DNS liberadas (fluxo A)
     dnsResp = panelResellerDns(deviceId, code)

@@ -10,7 +10,7 @@ function cargarConfigRemota() as Object
     ' Nome de exibicao padrao da marca (revendedor sobrescreve via app_name no applyPanelBranding)
     if m.global.titulo = invalid or m.global.titulo = "" then m.global.titulo = "Speed PlayerTech"
 
-    deviceId = CreateObject("roDeviceInfo").GetChannelClientId()
+    deviceId = getStableDeviceId()
     poll = panelPoll(deviceId)
     configArray = []
 
