@@ -185,10 +185,11 @@
        <!-- Overlay de CARREGANDO (por cima de tudo): aparece ao entrar, some quando os canais chegam -->
        <Group id="loadingOverlay" visible="true">
            <Rectangle width="1920" height="1080" color="0x070B14F2" />
-           <BusySpinner id="loadingSpin" translation="[922,452]" clockwise="true" spinInterval="0.9" uri="pkg:/images/loader.png" />
-           <Label id="loadingMsg" width="1920" horizAlign="center" vertAlign="center" translation="[0,560]" color="0xFFFFFFFF">
+           <!-- texto em cima, spinner girando ABAIXO (sem sobrepor) -->
+           <Label id="loadingMsg" width="1920" horizAlign="center" vertAlign="center" translation="[0,455]" color="0xFFFFFFFF">
                <Font role="font" uri="pkg:/fonts/Montserrat-Bold.ttf" size="36" />
            </Label>
+           <BusySpinner id="loadingSpin" translation="[896,545]" clockwise="true" spinInterval="0.9" uri="pkg:/images/loader.png" />
        </Group>
 
     </children>

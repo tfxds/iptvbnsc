@@ -1986,7 +1986,7 @@ end function
 ' Clean a string that may have invalid characters.
 function clean(dirty as object) as string
     if m._clean_regex = invalid
-        m._clean_regex = createObject("roRegex", "[^A-Za-z0-9\s!@#$%^&*()_\-+=<,>\./\?';\:\[\]\{\}\\\|" + chr(34) + "]", "")
+        m._clean_regex = createObject("roRegex", "[^A-Za-z0-9\s!@#$%^&*()_\-+=<,>\./\?';\:\[\]\{\}\\\|\x80-\xFF" + chr(34) + "]", "")
     end if
     if type(dirty) <> "roString" and type(dirty) <> "String" and type(dirty) <> "string"
         return ""

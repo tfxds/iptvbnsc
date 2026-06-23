@@ -39,7 +39,7 @@ end sub
 ' Tenta montar a pasta filtrando o cache "Todos" (cacheGrid_<tipo>) por categoria.
 ' Retorna true se conseguiu (mostrou na hora); false se nao ha cache (cai pra rede).
 function showCachedCategory(catId as dynamic) as boolean
-    if catId = invalid or catId = "" then return false
+    if catId = invalid then return false
     if m.global.contentType = invalid then return false
     cache = m["cacheGrid_" + m.global.contentType]
     if cache = invalid then return false
@@ -51,9 +51,10 @@ function showCachedCategory(catId as dynamic) as boolean
     ' Filtra pela categoria E ordena por DATA de adicao/atualizacao (recentes primeiro),
     ' igual a home. Sem isso a grade saia na ordem crua da API (id) -> series novas
     ' (re-adicoes com id baixo) ficavam fora de ordem. Fallback no id se a data faltar.
+    ' catId vazio = "Todos" -> inclui tudo (instantaneo na re-entrada); senao filtra a pasta.
     items = []
     for each child in cache.GetChildren(-1, 0)
-        if child.categoryId = catId then items.Push(child)
+        if catId = "" or child.categoryId = catId then items.Push(child)
     end for
     order = []
     for i = 0 to items.Count() - 1
