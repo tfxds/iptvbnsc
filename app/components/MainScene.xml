@@ -65,6 +65,7 @@
             font="font:SmallBoldSystemFont"
             backgroundColor="0x551A8B"
             backgroundOpacity="0"
-			visible="false"/>	
+			visible="false"/>
+        <UpdateOverlay id="updateOverlay" visible="false"/>
     </children>
 </component>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Tela de pre-carregamento (1a abertura / a cada 24h / atualizacao forcada).
+     Logo do revendedor grande a esquerda + 3 passos (Canais/Filmes/Series) em
+     cards a direita + barra de progresso. Estilo igual ao app Tizen/webOS. -->
+<component name="UpdateOverlay" extends="Group">
+    <interface>
+        <field id="canaisDone" type="bool" value="false" onChange="render"/>
+        <field id="filmesDone" type="bool" value="false" onChange="render"/>
+        <field id="seriesDone" type="bool" value="false" onChange="render"/>
+    </interface>
+    <script type="text/brightscript" uri="UpdateOverlay.brs"/>
+    <children>
+        <Rectangle id="bg" width="1920" height="1080" color="0x060912FF"/>
+        <!-- painel sutil atras da logo (acento sky) -->
+        <Rectangle id="logoPanel" width="560" height="300" translation="[160,390]" color="0x0EA5E912"/>
+
+        <!-- Logo do SpeedTech (wide 1024x354, sem distorcer) -->
+        <Poster id="logo" uri="pkg:/images/speedtech_logo.png" width="480" height="166"
+                translation="[200,457]" loadDisplayMode="scaleToFit"/>
+
+        <!-- Coluna direita: titulo + passos + barra -->
+        <Label id="title" translation="[820,330]" width="820"
+               text="Preparando seu conteúdo" color="0xF1F5F9FF" font="font:LargeBoldSystemFont"/>
+        <Label id="subtitle" translation="[820,392]" width="820"
+               text="Atualizando a lista de reprodução…" color="0x94A3B8FF" font="font:MediumSystemFont"/>
+
+        <!-- Passo 1: Canais -->
+        <Rectangle id="cardCanais" width="820" height="66" translation="[820,460]" color="0x0E1626CC"/>
+        <Label id="iconCanais" translation="[840,481]" width="48" horizAlign="center" text="1º" color="0x94A3B8FF" font="font:MediumBoldSystemFont"/>
+        <Label id="stepCanais" translation="[904,481]" width="500" text="Canais" color="0xE2E8F0FF" font="font:MediumBoldSystemFont"/>
+        <Label id="okCanais" translation="[1490,483]" width="130" horizAlign="right" text="" color="0x22C55EFF" font="font:SmallestBoldSystemFont"/>
+
+        <!-- Passo 2: Filmes -->
+        <Rectangle id="cardFilmes" width="820" height="66" translation="[820,538]" color="0x0E1626CC"/>
+        <Label id="iconFilmes" translation="[840,559]" width="48" horizAlign="center" text="2º" color="0x94A3B8FF" font="font:MediumBoldSystemFont"/>
+        <Label id="stepFilmes" translation="[904,559]" width="500" text="Filmes" color="0xE2E8F0FF" font="font:MediumBoldSystemFont"/>
+        <Label id="okFilmes" translation="[1490,561]" width="130" horizAlign="right" text="" color="0x22C55EFF" font="font:SmallestBoldSystemFont"/>
+
+        <!-- Passo 3: Series -->
+        <Rectangle id="cardSeries" width="820" height="66" translation="[820,616]" color="0x0E1626CC"/>
+        <Label id="iconSeries" translation="[840,637]" width="48" horizAlign="center" text="3º" color="0x94A3B8FF" font="font:MediumBoldSystemFont"/>
+        <Label id="stepSeries" translation="[904,637]" width="500" text="Séries" color="0xE2E8F0FF" font="font:MediumBoldSystemFont"/>
+        <Label id="okSeries" translation="[1490,639]" width="130" horizAlign="right" text="" color="0x22C55EFF" font="font:SmallestBoldSystemFont"/>
+
+        <!-- Barra de progresso -->
+        <Rectangle id="barBg" width="820" height="12" translation="[820,716]" color="0x1A2438FF"/>
+        <Rectangle id="barFill" width="0" height="12" translation="[820,716]" color="0x38BDF8FF"/>
+        <Label id="pct" translation="[820,738]" width="820" horizAlign="right" text="0%" color="0x38BDF8FF" font="font:SmallestBoldSystemFont"/>
+    </children>
+</component>

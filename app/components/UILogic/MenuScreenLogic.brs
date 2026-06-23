@@ -10,12 +10,88 @@ sub ShowMenuScreen()
     overhang = getScene().FindNode("overhang")
     if overhang <> invalid then overhang.visible = false
 
-    ShowScreen(m.MenuScreen)
     stampMenuAccess()
-    ' Pre-carrega Filmes e Series (Todos) em background pro cache -> 1a entrada instantanea.
+    ' Em TODA abertura mostra a tela de carregamento (Canais/Filmes/Series) e so revela
+    ' a home quando os 3 carregarem (igual ao S.A Player).
+    startMenuLoading()
+end sub
+
+' Tela de carregamento (3 passos) na abertura -> revela a home no fim. Reusa o preload.
+sub startMenuLoading()
+    ov = getScene().FindNode("updateOverlay")
+    if ov <> invalid
+        ov.canaisDone = false
+        ov.filmesDone = false
+        ov.seriesDone = false
+        ov.visible = true
+    end if
+    m.menuLoadActive = true
+    m.stepCanais = false
+    m.stepFilmes = false
+    m.stepSeries = false
+
+    ' tempo minimo de exibicao (~1.2s) pra nao "piscar" quando o cache esta fresco
+    m.menuMinElapsed = false
+    m.menuMinTimer = CreateObject("roSGNode", "Timer")
+    m.menuMinTimer.duration = 1.2
+    m.menuMinTimer.repeat = false
+    m.menuMinTimer.observeField("fire", "onMenuMinElapsed")
+    m.menuMinTimer.control = "start"
+
+    ' dispara os loaders (Filmes/Series/Canais)
     preloadListings()
-    ' Monta as linhas da home com o que ja tiver (Continuar Assistindo entra na hora;
-    ' Filmes/Series entram quando o preload terminar -> onPreload*Done re-monta).
+    ' o que ja estiver em cache (warm) conta na hora
+    if m.cacheGrid_movie <> invalid then menuStepDone("filmes")
+    if m.cacheGrid_series <> invalid then menuStepDone("series")
+    if m.global <> invalid and m.global.liveStreamsRaw <> invalid and m.global.liveStreamsRaw <> "" then menuStepDone("canais")
+
+    ' trava de seguranca: revela a home em 30s no maximo
+    m.menuLoadTimer = CreateObject("roSGNode", "Timer")
+    m.menuLoadTimer.duration = 30
+    m.menuLoadTimer.repeat = false
+    m.menuLoadTimer.observeField("fire", "onMenuLoadTimeout")
+    m.menuLoadTimer.control = "start"
+end sub
+
+sub menuStepDone(which as String)
+    ov = getScene().FindNode("updateOverlay")
+    if which = "canais" and m.stepCanais <> true
+        m.stepCanais = true
+        if ov <> invalid then ov.canaisDone = true
+    else if which = "filmes" and m.stepFilmes <> true
+        m.stepFilmes = true
+        if ov <> invalid then ov.filmesDone = true
+    else if which = "series" and m.stepSeries <> true
+        m.stepSeries = true
+        if ov <> invalid then ov.seriesDone = true
+    end if
+    maybeRevealMenu()
+end sub
+
+sub onMenuMinElapsed()
+    m.menuMinElapsed = true
+    maybeRevealMenu()
+end sub
+
+' So revela a home quando os 3 passos terminaram E passou o tempo minimo
+sub maybeRevealMenu()
+    if m.stepCanais = true and m.stepFilmes = true and m.stepSeries = true and m.menuMinElapsed = true
+        finishMenuLoading()
+    end if
+end sub
+
+sub onMenuLoadTimeout()
+    finishMenuLoading()
+end sub
+
+sub finishMenuLoading()
+    if m.menuLoadActive <> true then return
+    m.menuLoadActive = false
+    if m.menuLoadTimer <> invalid then m.menuLoadTimer.control = "stop"
+    if m.menuMinTimer <> invalid then m.menuMinTimer.control = "stop"
+    ov = getScene().FindNode("updateOverlay")
+    if ov <> invalid then ov.visible = false
+    ShowScreen(m.MenuScreen)
     m.MenuScreen.homeRows = buildHomeRows()
 end sub
 
@@ -47,11 +123,18 @@ sub preloadListings()
         m.preloadLive = CreateObject("roSGNode", "TimeGridLoaderTask")
         m.preloadLive.id = ""
         m.preloadLive.rawOnly = true
+        m.preloadLive.observeField("content", "onPreloadLiveDone")
         m.preloadLive.control = "run"
     end if
 end sub
 
+' Lista crua de canais carregou -> marca o passo "Canais" na tela de carregamento.
+sub onPreloadLiveDone()
+    menuStepDone("canais")
+end sub
+
 sub onPreloadMovieDone()
+    menuStepDone("filmes")
     if m.preloadMovie <> invalid and m.preloadMovie.content <> invalid
         m.cacheGrid_movie = m.preloadMovie.content
         if m.MenuScreen <> invalid then m.MenuScreen.homeRows = buildHomeRows()
@@ -80,6 +163,7 @@ sub onRefreshMovieDone()
 end sub
 
 sub onPreloadSeriesDone()
+    menuStepDone("series")
     if m.preloadSeries <> invalid and m.preloadSeries.content <> invalid
         m.cacheGrid_series = m.preloadSeries.content
         if m.MenuScreen <> invalid then m.MenuScreen.homeRows = buildHomeRows()
